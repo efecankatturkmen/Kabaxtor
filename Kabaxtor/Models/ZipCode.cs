@@ -9,6 +9,7 @@ namespace Kabaxtor.Models
     {
         public string ZipCodeN { get; set; }
         public string City { get; set; }
+      
 
     }
 }
