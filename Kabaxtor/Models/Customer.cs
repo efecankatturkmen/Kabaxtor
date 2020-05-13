@@ -13,6 +13,7 @@ namespace Kabaxtor.Models
         public int CustomerCardID { get; set; }
         public int CustomerAddressID { get; set; }
         public string CustomerEmail { get; set; }
+        public string CustomerPassword { get; set; }
         public DateTime CustomerCreated{ get; set; }
         public DateTime CountryModified { get; set; }
         public DateTime CustomerActivate { get; set; }

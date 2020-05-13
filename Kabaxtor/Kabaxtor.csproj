@@ -4329,7 +4329,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\Admin\AdminOperationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\Admin\ProductController.cs" />
+    <Compile Include="Controllers\User\CustomerController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -4337,13 +4340,11 @@
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\CustomerCards.cs" />
     <Compile Include="Models\Delivery.cs" />
-    <Compile Include="Models\OrderProduct.cs" />
+    <Compile Include="Models\OrderDetails.cs" />
     <Compile Include="Models\Orders.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ShippingInformation.cs" />
     <Compile Include="Models\Statuses.cs" />
-    <Compile Include="Models\User.cs" />
-    <Compile Include="Models\ZipCode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -4401,6 +4402,9 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\js\components\tinymce\langs\" />
+    <Folder Include="Views\AdminOperation\" />
+    <Folder Include="Views\Customer\" />
+    <Folder Include="Views\Product\" />
     <Folder Include="Views\User\" />
   </ItemGroup>
   <PropertyGroup>

@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Kabaxtor.Models
 {
-    public class OrderProduct
+    public class OrderDetails
     {
         public int OrdersID { get; set; }
         public int ProductID { get; set; }
