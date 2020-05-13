@@ -14,9 +14,11 @@ namespace Kabaxtor.Controllers.User
 {
     public class CustomerController : Controller
     {
-        string connectionString = @"data source=DESKTOP-74T5N7S\SQLSERVER2017EXP;initial catalog = KABAKSTORE; integrated security = True; MultipleActiveResultSets=True";
+        // Omer
+        //string connectionString = @"data source=DESKTOP-74T5N7S\SQLSERVER2017EXP;initial catalog = KABAKSTORE; integrated security = True; MultipleActiveResultSets=True";
+        // Canki
+        string connectionString = @"data source =DESKTOP-4NF9LQ5\SQLEXPRESS;initial catalog = KABAKSTORE; integrated security = True; MultipleActiveResultSets=True";
 
-        
         //customerdan bilgilerini almak icin kullanilir
         [HttpGet]
         public ActionResult CreateCustomer()

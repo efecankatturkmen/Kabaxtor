@@ -10,8 +10,10 @@ namespace Kabaxtor.Controllers
 {
     public class HomeController : Controller
     {
-        string connectionString = @"data source=DESKTOP-74T5N7S\SQLSERVER2017EXP;initial catalog = KABAKSTORE; integrated security = True; MultipleActiveResultSets=True";
-
+        // Omer
+        //string connectionString = @"data source=DESKTOP-74T5N7S\SQLSERVER2017EXP;initial catalog = KABAKSTORE; integrated security = True; MultipleActiveResultSets=True";
+        // Canki
+        string connectionString =   @"data source =DESKTOP-4NF9LQ5\SQLEXPRESS;initial catalog = KABAKSTORE; integrated security = True; MultipleActiveResultSets=True";
 
         // GET: Home
         [HttpGet]

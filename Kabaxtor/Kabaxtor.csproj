@@ -4329,10 +4329,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\Admin\AdminOperationController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\Admin\ProductController.cs" />
-    <Compile Include="Controllers\User\CustomerController.cs" />
+    <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -4402,10 +4401,9 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\js\components\tinymce\langs\" />
-    <Folder Include="Views\AdminOperation\" />
+    <Folder Include="Views\Admin\" />
     <Folder Include="Views\Customer\" />
     <Folder Include="Views\Product\" />
-    <Folder Include="Views\User\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
