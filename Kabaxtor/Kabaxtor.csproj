@@ -4337,6 +4337,7 @@
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\CustomerCards.cs" />
     <Compile Include="Models\Delivery.cs" />
+    <Compile Include="Models\Manager\DataBaseContext.cs" />
     <Compile Include="Models\OrderProduct.cs" />
     <Compile Include="Models\Orders.cs" />
     <Compile Include="Models\Product.cs" />
@@ -4345,6 +4346,7 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\ZipCode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\HomeViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
