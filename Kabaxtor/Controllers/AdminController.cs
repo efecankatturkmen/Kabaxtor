@@ -6,12 +6,13 @@ using System.Web.Mvc;
 using Kabaxtor.Models;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 //BU KONTROLLER SHIPPINGINFO, STATUS, DELIVERY VB SEYLERI YARATMAK ICIN KULLANILIR
 
 
-namespace Kabaxtor.Controllers.Admin
+namespace Kabaxtor.Controllers
 {
-    public class AdminOperationController : Controller
+    public class AdminController : Controller
     {
         // Omer
         //string connectionString = @"data source=DESKTOP-74T5N7S\SQLSERVER2017EXP;initial catalog = KABAKSTORE; integrated security = True; MultipleActiveResultSets=True";
@@ -276,23 +277,29 @@ namespace Kabaxtor.Controllers.Admin
         }
 
 
-        [HttpGet]
+      
         public ActionResult CreateProduct()
         {
 
-            return View(new Product());
+            return View();
+        }
+        public ActionResult CreateProduct2()
+        {
+
+            return View();
         }
 
         //Product uretip database a kaydetme
         [HttpPost]
-        public ActionResult CreateProduct(Product productModelInstance)
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateProduct(Product productModelInstance, HttpPostedFileBase jpeg, HttpPostedFileBase jpeg2)
         {
 
             using (SqlConnection sqlCon = new SqlConnection(connectionString))
             {
 
                 sqlCon.Open();
-                string query = "INSERT INTO Product VALUES(@ProductName,@ProductionDate,@ProductHeight,@ProductWidht,@ProductStock,@ProductPrice,@ProductWeight,@ProductComments)";
+                string query = "INSERT INTO Product(ProductName,ProductHeight,ProductWidht,ProductStock,ProductPrice,ProductWeight,ProductComments) VALUES(@ProductName,@ProductHeight,@ProductWidht,@ProductStock,@ProductPrice,@ProductWeight,@ProductComments)";
                 SqlCommand sqlCommand = new SqlCommand(query, sqlCon);
                 sqlCommand.Parameters.AddWithValue("@ProductName", productModelInstance.ProductName);
                 sqlCommand.Parameters.AddWithValue("@ProductionDate", productModelInstance.ProductName);
@@ -305,9 +312,20 @@ namespace Kabaxtor.Controllers.Admin
 
                 sqlCommand.ExecuteNonQuery();
             }
+            if (jpeg!=null)
+            {
+                var jpegname = productModelInstance.ProductID.ToString();
+                var JpegSavePath = Path.Combine(Server.MapPath("~/Content/demos/shop/images/items/featured/") + jpegname + ".jpeg");
+                jpeg.SaveAs(JpegSavePath);
+            }
+            if (jpeg2 != null)
+            {
+                var jpegname = productModelInstance.ProductID.ToString();
+                var JpegSavePath = Path.Combine(Server.MapPath("~/Content/demos/shop/images/items/featured/") + jpegname + "-1.jpeg");
+                jpeg.SaveAs(JpegSavePath);
+            }
 
-
-            return RedirectToAction("Index");
+            return RedirectToAction("CreateProduct");
         }
 
 

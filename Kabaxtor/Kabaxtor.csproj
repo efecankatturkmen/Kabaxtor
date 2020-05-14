@@ -191,13 +191,10 @@
     <Content Include="Content\demos\shop\images\items\featured\1.jpg" />
     <Content Include="Content\demos\shop\images\items\featured\2-1.jpg" />
     <Content Include="Content\demos\shop\images\items\featured\2.jpg" />
+    <Content Include="Content\demos\shop\images\items\featured\3-1.jpg" />
     <Content Include="Content\demos\shop\images\items\featured\3.jpg" />
     <Content Include="Content\demos\shop\images\items\featured\4-1.jpg" />
-    <Content Include="Content\demos\shop\images\items\featured\4-2.jpg" />
-    <Content Include="Content\demos\shop\images\items\featured\4-3.jpg" />
     <Content Include="Content\demos\shop\images\items\featured\4.jpg" />
-    <Content Include="Content\demos\shop\images\items\featured\5-1.jpg" />
-    <Content Include="Content\demos\shop\images\items\featured\5.jpg" />
     <Content Include="Content\demos\shop\images\items\new\1-1.jpg" />
     <Content Include="Content\demos\shop\images\items\new\1.jpg" />
     <Content Include="Content\demos\shop\images\items\new\10.jpg" />
@@ -4391,6 +4388,10 @@
     <None Include="packages.config" />
     <Content Include="Views\Shared\Home_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\Admin_Layout .cshtml" />
+    <Content Include="Views\Shared\Customer_Layout .cshtml" />
+    <Content Include="Views\Admin\CreateProduct2.cshtml" />
+    <Content Include="Views\Admin\CreateProduct.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -4401,7 +4402,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\js\components\tinymce\langs\" />
-    <Folder Include="Views\Admin\" />
     <Folder Include="Views\Customer\" />
     <Folder Include="Views\Product\" />
   </ItemGroup>

@@ -118,34 +118,38 @@
 
                 <!-- Shop Item 1
     ============================================= -->
-                @for (int i = 0; i < Model.Rows.Count; i++)
-                {
-                    <div class="oc-item">
-                        <div class="product iproduct clearfix">
-                            <div class="product-image">
-                                <a href="#"><img src="~/Content/demos/shop/images/items/featured/1.jpg" alt="@Model.Rows[i][1]"></a>
-                                <a href="#"><img src="~/Content/demos/shop/images/items/featured/1-1.jpg" alt="@Model.Rows[i][1] "></a>
-                                <div class="sale-flash">Sale!</div>
-                                <div class="product-overlay">
-                                    <a href="#" class="add-to-cart"><i class="icon-shopping-cart"></i><span> Add to Cart</span></a>
-                                    <a href="~/Content/demos/shop/ajax/shop-item.html" class="item-quick-view" data-lightbox="ajax"><i class="icon-line-search"></i><span>Quick View</span></a>
+                @{
+                    for (int i = 0; i < Model.Rows.Count; i++)
+                    {
+                        string isikli = @Model.Rows[i][0].ToString()+".jpg";
+                        string isiksiz = @Model.Rows[i][0].ToString() + "-1.jpg";
+                        <div class="oc-item">
+                            <div class="product iproduct clearfix">
+                                <div class="product-image">
+                                   
+                                    <a href="#"><img src="~/Content/demos/shop/images/items/featured/@isikli" alt="@Model.Rows[i][1]"></a>
+                                    <a href="#"><img src="~/Content/demos/shop/images/items/featured/@isiksiz" alt="@Model.Rows[i][1]"></a>
+                                    <div class="sale-flash">Satista!</div>
+                                    <div class="product-overlay">
+                                        <a href="#" class="add-to-cart"><i class="icon-shopping-cart"></i><span> Add to Cart</span></a>
+                                        <a href="~/Content/demos/shop/ajax/shop-item.html" class="item-quick-view" data-lightbox="ajax"><i class="icon-line-search"></i><span>Quick View</span></a>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="product-desc">
-                                <div class="product-title mb-1"><h3><a href="#">Round Neck Solid Light Blue Colour T-shirts</a></h3></div>
-                                <div class="product-price font-primary"><del class="mr-1">$24.99</del> <ins>$@Model.Rows[i][7]</ins></div>
-                                <div class="product-rating">
-                                    <i class="icon-star3"></i>
-                                    <i class="icon-star3"></i>
-                                    <i class="icon-star3"></i>
-                                    <i class="icon-star-half-full"></i>
-                                    <i class="icon-star-empty"></i>
+                                <div class="product-desc">
+                                    <div class="product-title mb-1"><h3><a href="#">@Model.Rows[i][1]</a></h3></div>
+                                    <div class="product-price font-primary"><del class="mr-1">$24.99</del> <ins>$@Model.Rows[i][7]</ins></div>
+                                    @*<div class="product-rating">
+                                <i class="icon-star3"></i>
+                                <i class="icon-star3"></i>
+                                <i class="icon-star3"></i>
+                                <i class="icon-star-half-full"></i>
+                                <i class="icon-star-empty"></i>
+                            </div>*@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    }
                 }
-
 
 
 
@@ -267,7 +271,7 @@
 
         <!-- New Arrival Section
         ============================================= -->
-        <div class="section my-4">
+        @*<div class="section my-4">
             <div class="container">
                 <div class="row align-items-stretch grid-container clearfix" data-layout="fitRows">
                     <div class="col-md-5">
@@ -299,7 +303,7 @@
             </div>
         </div>
 
-        <div class="clear"></div>
+        <div class="clear"></div>*@
 
         <!-- New Arrivals Men
         ============================================= -->

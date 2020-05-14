@@ -1,0 +1,120 @@
+﻿@model Kabaxtor.Models.Product
+@{
+    ViewBag.Title = "CreateProduct";
+    Layout = "~/Views/Shared/Admin_Layout .cshtml";
+}
+
+<body class="template-contactform-complete template-contactform-success">
+    <div class="content-wrap">
+
+        <div class="container clearfix">
+            <div class="form-widget">
+                <div class="form-result"></div>
+
+                <div class="form-process"></div>
+
+                @using (Html.BeginForm("CreateProduct", "Admin", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+
+
+                <div class="row">
+
+                    <div class="col-md-6 form-group">
+                        @*<label for="template-contactform-name">Name <small>*</small></label>*@
+                        @Html.LabelFor(model => model.ProductName)
+                        @*<input type="text" id="template-contactform-name" name="template-contactform-name" value="" class="form-control required" />*@
+                        @Html.EditorFor(model => model.ProductName, new { htmlAttributes = new { @class = "form-control required", required = "required" } })
+                        @Html.ValidationMessageFor(model => model.ProductName, "", new { @class = "text-danger" })
+                    </div>
+
+
+
+                    <div class="col-md-6 form-group">
+                        @*<label for="template-contactform-name">Name <small>*</small></label>*@
+                        @Html.LabelFor(model => model.ProductHeight)
+                        @*<input type="text" id="template-contactform-name" name="template-contactform-name" value="" class="form-control required" />*@
+                        @Html.EditorFor(model => model.ProductHeight, new { htmlAttributes = new { @class = "form-control required", required = "required" } })
+                        @Html.ValidationMessageFor(model => model.ProductHeight, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-6 form-group">
+                        @*<label for="template-contactform-name">Name <small>*</small></label>*@
+                        @Html.LabelFor(model => model.ProductWidht)
+                        @*<input type="text" id="template-contactform-name" name="template-contactform-name" value="" class="form-control required" />*@
+                        @Html.EditorFor(model => model.ProductWidht, new { htmlAttributes = new { @class = "form-control required", required = "required" } })
+                        @Html.ValidationMessageFor(model => model.ProductWidht, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-6 form-group">
+                        @*<label for="template-contactform-name">Name <small>*</small></label>*@
+                        @Html.LabelFor(model => model.ProductStock)
+                        @*<input type="text" id="template-contactform-name" name="template-contactform-name" value="" class="form-control required" />*@
+                        @Html.EditorFor(model => model.ProductStock, new { htmlAttributes = new { @class = "form-control required", required = "required" } })
+                        @Html.ValidationMessageFor(model => model.ProductStock, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-6 form-group">
+                        @*<label for="template-contactform-name">Name <small>*</small></label>*@
+                        @Html.LabelFor(model => model.ProductPrice)
+                        @*<input type="text" id="template-contactform-name" name="template-contactform-name" value="" class="form-control required" />*@
+                        @Html.EditorFor(model => model.ProductPrice, new { htmlAttributes = new { @class = "form-control required", required = "required" } })
+                        @Html.ValidationMessageFor(model => model.ProductPrice, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-6 form-group">
+                        @*<label for="template-contactform-name">Name <small>*</small></label>*@
+                        @Html.LabelFor(model => model.Weight)
+                        @*<input type="text" id="template-contactform-name" name="template-contactform-name" value="" class="form-control required" />*@
+                        @Html.EditorFor(model => model.Weight, new { htmlAttributes = new { @class = "form-control required", required = "required" } })
+                        @Html.ValidationMessageFor(model => model.Weight, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="w-100"></div>
+
+                    <div class="col-md-6 form-group">
+                        @*<label for="template-contactform-name">Name <small>*</small></label>*@
+                        @Html.LabelFor(model => model.ProductComments)
+                        @*<input type="text" id="template-contactform-name" name="template-contactform-name" value="" class="form-control required" />*@
+                        @Html.TextAreaFor(model => model.ProductComments, new { rows = "6", cols = "60", htmlAttributes = new { @class = "required form-control", required = "required" } })
+                        @Html.ValidationMessageFor(model => model.ProductComments, "", new { @class = "text-danger" })
+                    </div>
+                    @*<div class="col-12 form-group">
+            <label for="template-contactform-message">Message <small>*</small></label>
+            <textarea class="required form-control" id="template-contactform-message" name="template-contactform-message" rows="6" cols="30"></textarea>
+        </div>*@
+                    <div class="w-100"></div>
+
+                    <div class="col-md-6 form-group">
+                        <label for="template-contactform-name">Isikli Resim <small>*</small></label>
+
+                        @*<input type="text" id="template-contactform-name" name="template-contactform-name" value="" class="form-control required" />*@
+                        @Html.TextBox("jpeg", "", new { type = "file" })
+                        @Html.ValidationMessageFor(model => model.ProductImage, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="col-md-6 form-group">
+                        <label for="template-contactform-name">Isiksiz Resim <small>*</small></label>
+
+                        @*<input type="text" id="template-contactform-name" name="template-contactform-name" value="" class="form-control required" />*@
+                        @Html.TextBox("jpeg2", "", new {htmlAttributes = new { @class = "button button-3d nomargin" }, type = "file" })
+                        @Html.ValidationMessageFor(model => model.ProductImage, "", new { @class = "text-danger" })
+                    </div>
+
+
+
+
+                    @*<div class="col-12 hidden">
+            <input type="text" id="template-contactform-botcheck" name="template-contactform-botcheck" value="" class="form-control" />
+        </div>*@
+
+                    <div class="col-12">
+                        <button type="submit" class="button button-3d nomargin">Ekle</button>
+                        @*<input type="submit" value="Create" class="btn btn-default" />*@
+                    </div>
+
+                    <!-- Form Settings -->
+                    @*<input type="hidden" name="prefix" value="template-contactform-">
+        <input type="hidden" name="subject" value="Message from Contact Form">*@
+                </div>
+                }
+
+            </div>
+        </div>
+    </div>
+</body>
