@@ -1,0 +1,65 @@
+﻿@model Kabaxtor.Models.ShippingInformation
+
+@{
+    ViewBag.Title = "CreateProduct";
+    Layout = "~/Views/Shared/Admin_Layout .cshtml";
+}
+
+
+<div class="content-wrap">
+
+    <div class="container clearfix">
+        @*<div class="form-widget">*@
+        @*<div class="form-result"></div>*@
+
+        <
+            @using (Html.BeginForm("CreateShippingInformation", "Admin", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    <h4>Product</h4>
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ShippingCompany, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.ShippingCompany, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.ShippingCompany, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ShippingCost, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.ShippingCost, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.ShippingCost, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CompanyTelephoneNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.CompanyTelephoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.CompanyTelephoneNumber, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Olustur" class="button button-3d nomargin" />
+                        </div>
+                    </div>
+                </div>
+            }
+           
+    </div>
+</div>
+
+            <div>
+                @Html.ActionLink("Back to List", "Index")
+            </div>

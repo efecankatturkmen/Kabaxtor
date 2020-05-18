@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="~/Content/demos/shop/shop.css" type="text/css" />
     <link rel="stylesheet" href="~/Content/demos/shop/css/fonts.css" type="text/css" />
     <!-- / -->
-
+    <link rel="stylesheet" href="~/Content/css/components/bs-datatable.css" type="text/css" />
     <link rel="stylesheet" href="~/Content/css/font-icons.css" type="text/css" />
     <link rel="stylesheet" href="~/Content/css/animate.css" type="text/css" />
     <link rel="stylesheet" href="~/Content/css/magnific-popup.css" type="text/css" />
@@ -39,12 +39,12 @@
 </head>
 
 <body class="stretched">
-    
+
     <!-- Document Wrapper
     ============================================= -->
     <div id="wrapper" class="clearfix">
 
-        
+
 
         <!-- On LOad Modal -->
         <div class="modal1 mfp-hide subscribe-widget divcenter" id="myModal1" style="max-width: 750px;">
@@ -108,59 +108,59 @@
         </div>
 
         <!-- Top Bar
-    ============================================= -->
-        <div id="top-bar" class="dark" style="background-color: #a3a5a7;">
+        ============================================= -->
+        @*<div id="top-bar" class="dark" style="background-color: #a3a5a7;">
 
-            <div class="container clearfix">
+                <div class="container clearfix">
 
-                <div class="row justify-content-between">
+                    <div class="row justify-content-between">
 
-                    <div class="col-lg-5 nobottommargin">
+                        <div class="col-lg-5 nobottommargin">
 
-                        <p class="nobottommargin d-flex justify-content-center justify-content-lg-start"><strong>Free U.S. Shipping on Order above $99. Easy Returns.</strong></p>
+                            <p class="nobottommargin d-flex justify-content-center justify-content-lg-start"><strong>Free U.S. Shipping on Order above $99. Easy Returns.</strong></p>
 
+                        </div>
+
+                        <div class="col-lg-7 d-none d-lg-flex justify-content-end">
+
+                            <!-- Top Links
+                        ============================================= -->
+                            <div class="top-links">
+                                <ul>
+                                    <li><a href="#">About</a></li>
+                                    <li><a href="#">FAQS</a></li>
+                                    <li><a href="#">Blogs</a></li>
+                                    <li>
+                                        <a href="#">EN</a>
+                                        <ul>
+                                            <li><a href="#"><img src="~/Content/images/icons/flags/french.png" alt="French"> FR</a></li>
+                                            <li><a href="#"><img src="~/Content/images/icons/flags/italian.png" alt="Italian"> IT</a></li>
+                                            <li><a href="#"><img src="~/Content/images/icons/flags/german.png" alt="German"> DE</a></li>
+                                        </ul>
+                                    </li>
+                                    <li></li>
+                                </ul>
+                            </div><!-- .top-links end -->
+                            <!-- Top Social
+                        ============================================= -->
+                            <div id="top-social">
+                                <ul>
+                                    <li><a href="#" class="si-facebook"><span class="ts-icon"><i class="icon-facebook"></i></span><span class="ts-text">Facebook</span></a></li>
+                                    <li><a href="#" class="si-instagram"><span class="ts-icon"><i class="icon-instagram2"></i></span><span class="ts-text">Instagram</span></a></li>
+                                    <li><a href="tel:+91.11.85412542" class="si-call"><span class="ts-icon"><i class="icon-call"></i></span><span class="ts-text">+91.11.85412542</span></a></li>
+                                    <li><a href="mailto:info@canvas.com" class="si-email3"><span class="ts-icon"><i class="icon-envelope-alt"></i></span><span class="ts-text">info@canvas.com</span></a></li>
+                                </ul>
+                            </div><!-- #top-social end -->
+
+                        </div>
                     </div>
 
-                    <div class="col-lg-7 d-none d-lg-flex justify-content-end">
-
-                        <!-- Top Links
-                    ============================================= -->
-                        <div class="top-links">
-                            <ul>
-                                <li><a href="#">About</a></li>
-                                <li><a href="#">FAQS</a></li>
-                                <li><a href="#">Blogs</a></li>
-                                <li>
-                                    <a href="#">EN</a>
-                                    <ul>
-                                        <li><a href="#"><img src="~/Content/images/icons/flags/french.png" alt="French"> FR</a></li>
-                                        <li><a href="#"><img src="~/Content/images/icons/flags/italian.png" alt="Italian"> IT</a></li>
-                                        <li><a href="#"><img src="~/Content/images/icons/flags/german.png" alt="German"> DE</a></li>
-                                    </ul>
-                                </li>
-                                <li></li>
-                            </ul>
-                        </div><!-- .top-links end -->
-                        <!-- Top Social
-                    ============================================= -->
-                        <div id="top-social">
-                            <ul>
-                                <li><a href="#" class="si-facebook"><span class="ts-icon"><i class="icon-facebook"></i></span><span class="ts-text">Facebook</span></a></li>
-                                <li><a href="#" class="si-instagram"><span class="ts-icon"><i class="icon-instagram2"></i></span><span class="ts-text">Instagram</span></a></li>
-                                <li><a href="tel:+91.11.85412542" class="si-call"><span class="ts-icon"><i class="icon-call"></i></span><span class="ts-text">+91.11.85412542</span></a></li>
-                                <li><a href="mailto:info@canvas.com" class="si-email3"><span class="ts-icon"><i class="icon-envelope-alt"></i></span><span class="ts-text">info@canvas.com</span></a></li>
-                            </ul>
-                        </div><!-- #top-social end -->
-
-                    </div>
                 </div>
 
-            </div>
-
-        </div>
+            </div>*@
 
         <!-- Header
-    ============================================= -->
+        ============================================= -->
         <header id="header" class="full-header clearfix">
 
             <div id="header-wrap">
@@ -170,43 +170,36 @@
                     <div id="primary-menu-trigger"><i class="icon-reorder"></i></div>
 
                     <!-- Logo
-                ============================================= -->
+                    ============================================= -->
                     <div id="logo">
                         <a href="index.html" class="standard-logo"><img src="~/Content/demos/shop/images/logo.png" alt="Canvas Logo"></a>
                         <a href="index.html" class="retina-logo"><img src="~/Content/demos/shop/images/logo@2x.png" alt="Canvas Logo"></a>
                     </div><!-- #logo end -->
                     <!-- Primary Navigation
-                ============================================= -->
+                    ============================================= -->
                     <nav id="primary-menu" class="style-2 with-arrows">
 
                         <ul>
-                            <li class="current"><a href="#"><div>Home</div></a></li>
+                            <li class="current"><a href="#"><div>AnaSayfa</div></a></li>
                             <!-- Mega Menu
-                        ============================================= -->
+                            ============================================= -->
                             <li class="mega-menu">
-                                <a href="#"><div>Men</div></a>
+                                <a href="#"><div>Olustur</div></a>
                                 <div class="mega-menu-content style-2 clearfix">
                                     <ul class="mega-menu-column border-left-0 col-lg-3">
                                         <li class="mega-menu-title">
-                                            <a href="#"><div>Footwear</div></a>
+                                            <a href="#"><div>Urun</div></a>
                                             <ul>
-                                                <li><a href="#"><div>Casual Shoes</div></a></li>
-                                                <li><a href="#"><div>Formal Shoes</div></a></li>
-                                                <li><a href="#"><div>Sports shoes</div></a></li>
-                                                <li><a href="#"><div>Flip Flops</div></a></li>
-                                                <li><a href="#"><div>Slippers</div></a></li>
-                                                <li><a href="#"><div>Sandals</div></a></li>
-                                                <li><a href="#"><div>Show all <i class="icon-angle-right"></i></div></a></li>
+                                                <li><a href="@Url.Content("~/Admin/CreateProduct2")"><div>Urun Olustur</div></a></li>
+
+                                                @*<li><a href="#"><div>Show all <i class="icon-angle-right"></i></div></a></li>*@
                                             </ul>
                                         </li>
                                         <li class="mega-menu-title">
-                                            <a href="#"><div>Clothing</div></a>
+                                            <a href="#"><div>Kargo</div></a>
                                             <ul>
-                                                <li><a href="#"><div>Casual Shirts</div></a></li>
-                                                <li><a href="#"><div>T-Shirts</div></a></li>
-                                                <li><a href="#"><div>Collared Tees</div></a></li>
-                                                <li><a href="#"><div>Pants / Trousers</div></a></li>
-                                                <li><a href="#"><div>Show all <i class="icon-angle-right"></i></div></a></li>
+                                                <li><a href="@Url.Content("~/Admin/CreateShippingInformation")"><div>Kargo Sirketi Olustur</div></a></li>
+
                                             </ul>
                                         </li>
                                     </ul>
@@ -258,89 +251,59 @@
                                 </div>
                             </li><!-- .mega-menu end -->
                             <li>
-                                <a href="#"><div>Women</div></a>
+                                <a href="#"><div>Goruntule</div></a>
                                 <div class="mega-menu-content style-2 clearfix">
                                     <ul class="mega-menu-column col-lg-6">
                                         <li class="mega-menu-title">
-                                            <a href="#"><div>Footwear</div></a>
+                                            <a href="#"><div>Urunler</div></a>
                                             <ul>
-                                                <li><a href="#"><div>Casual Shoes</div></a></li>
-                                                <li><a href="#"><div>Formal Shoes</div></a></li>
-                                                <li><a href="#"><div>Sports shoes</div></a></li>
-                                                <li><a href="#"><div>Flip Flops</div></a></li>
-                                                <li><a href="#"><div>Slippers</div></a></li>
-                                                <li><a href="#"><div>Sandals</div></a></li>
-                                                <li><a href="#"><div>Party Shoes</div></a></li>
+                                                <li><a href="~/Admin/ListingProduct"><div>Urunleri Goruntule</div></a></li>
+
                                             </ul>
                                         </li>
                                     </ul>
                                     <ul class="mega-menu-column col-lg-6">
                                         <li class="mega-menu-title">
-                                            <a href="#"><div>Clothing</div></a>
+                                            <a href="#"><div>Kargo Sirketleri</div></a>
                                             <ul>
-                                                <li><a href="#"><div>Casual Shirts</div></a></li>
-                                                <li><a href="#"><div>T-Shirts</div></a></li>
-                                                <li><a href="#"><div>Collared Tees</div></a></li>
-                                                <li><a href="#"><div>Pants / Trousers</div></a></li>
-                                                <li><a href="#"><div>Ethnic Wear</div></a></li>
-                                                <li><a href="#"><div>Jeans</div></a></li>
-                                                <li><a href="#"><div>Swimwear</div></a></li>
+                                                <li><a href="~/Admin/ListingShippingCompanies"><div>Kargo Sirketlerini Goruntule</div></a></li>
+
                                             </ul>
                                         </li>
                                     </ul>
                                 </div>
                             </li><!-- .mega-menu end -->
-                            <li><a href="#"><div>Accessories</div></a></li>
-                            <li><a href="#"><div>Blog</div></a></li>
-                            <li><a href="#"><div>Sales</div></a></li>
+                            <li>
+                                <a href="#"><div>Guncelle</div></a>
+                                <div class="mega-menu-content style-2 clearfix">
+                                    <ul class="mega-menu-column col-lg-6">
+                                        <li class="mega-menu-title">
+                                            <a href="#"><div>Urunler</div></a>
+                                            <ul>
+                                                <li><a href="~/Admin/ListingProductToEdit"><div>Urunleri Guncelle</div></a></li>
+
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                    <ul class="mega-menu-column col-lg-6">
+                                        <li class="mega-menu-title">
+                                            <a href="#"><div>Kargo Sirketleri</div></a>
+                                            <ul>
+                                                <li><a href="~/Admin/ListingShippingCompaniesToEdit"><div>Kargo Sirketlerini Guncelle</div></a></li>
+
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li><!-- .mega-menu end -->
+
                         </ul>
 
                         <!-- Top Search
-                    ============================================= -->
-                        <div id="top-search">
-                            <a href="#" id="top-search-trigger"><i class="icon-line-search"></i><i class="icon-line-cross"></i></a>
-                            <form action="search.html" method="get">
-                                <input type="text" name="q" class="form-control" value="" placeholder="Type &amp; Hit Enter..">
-                            </form>
-                        </div><!-- #top-search end -->
-                        <!-- Top Cart
-                    ============================================= -->
-                        <div id="top-cart">
-                            <a href="#" id="top-cart-trigger"><i class="icon-line-bag"></i><span>5</span></a>
-                            <div class="top-cart-content">
-                                <div class="top-cart-title">
-                                    <h4>Shopping Cart</h4>
-                                </div>
-                                <div class="top-cart-items">
-                                    <div class="top-cart-item clearfix">
-                                        <div class="top-cart-item-image">
-                                            <a href="#"><img src="demos/shop/images/items/featured/5.jpg" alt="Blue Shoulder Bag" /></a>
-                                        </div>
-                                        <div class="top-cart-item-desc">
-                                            <a href="#" class="t400">White athletic shoe</a>
-                                            <span class="top-cart-item-price">$35.00</span>
-                                            <span class="top-cart-item-quantity t600">x 1</span>
-                                        </div>
-                                    </div>
-                                    <div class="top-cart-item clearfix">
-                                        <div class="top-cart-item-image">
-                                            <a href="#" class="t400"><img src="demos/shop/images/items/featured/1.jpg" alt="Leather Bag" /></a>
-                                        </div>
-                                        <div class="top-cart-item-desc">
-                                            <a href="#" class="t400">Round Neck Solid Light Blue Colour T-shirts</a>
-                                            <span class="top-cart-item-price">$12.49</span>
-                                            <span class="top-cart-item-quantity t600">x 2</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="top-cart-action clearfix">
-                                    <span class="fleft top-checkout-price t600 text-dark">$59.98</span>
-                                    <button class="button button-dark button-small nomargin fright">View Cart</button>
-                                </div>
-                            </div>
-                        </div><!-- #top-cart end -->
+                        ============================================= -->
+               
                         <!-- Top Search
-                    ============================================= -->
+                        ============================================= -->
                         <div id="top-account">
                             <a href="#modal-register" data-lightbox="inline"><i class="icon-line2-user mr-1 position-relative" style="top: 1px;"></i><span class="d-none d-sm-inline-block font-primary t500">Login</span></a>
                         </div><!-- #top-search end -->
@@ -355,102 +318,14 @@
         @RenderBody()
 
         <!-- Footer
-    ============================================= -->
+        ============================================= -->
         <footer id="footer" class="nobg noborder">
 
-            <div class="container clearfix">
-
-                <!-- Footer Widgets
-            ============================================= -->
-                <div class="footer-widgets-wrap pb-3 border-bottom clearfix">
-
-                    <div class="row">
-
-                        <div class="col-lg-2 col-md-3 col-6">
-                            <div class="widget clearfix">
-
-                                <h4 class="ls0 mb-3 nott">Features</h4>
-
-                                <ul class="list-unstyled iconlist ml-0">
-                                    <li><a href="#">Help Center</a></li>
-                                    <li><a href="#">Paid with Moblie</a></li>
-                                    <li><a href="#">Status</a></li>
-                                    <li><a href="#">Changelog</a></li>
-                                    <li><a href="#">Contact Support</a></li>
-                                </ul>
-
-                            </div>
-                        </div>
-                        <div class="col-lg-2 col-md-3 col-6">
-                            <div class="widget clearfix">
-
-                                <h4 class="ls0 mb-3 nott">Support</h4>
-
-                                <ul class="list-unstyled iconlist ml-0">
-                                    <li><a href="#">Home</a></li>
-                                    <li><a href="#">About</a></li>
-                                    <li><a href="#">FAQs</a></li>
-                                    <li><a href="#">Support</a></li>
-                                    <li><a href="#">Contact</a></li>
-                                </ul>
-
-                            </div>
-                        </div>
-                        <div class="col-lg-2 col-md-3 col-6">
-                            <div class="widget clearfix">
-
-                                <h4 class="ls0 mb-3 nott">Trending</h4>
-
-                                <ul class="list-unstyled iconlist ml-0">
-                                    <li><a href="#">Shop</a></li>
-                                    <li><a href="#">Portfolio</a></li>
-                                    <li><a href="#">Blog</a></li>
-                                    <li><a href="#">Events</a></li>
-                                    <li><a href="#">Forums</a></li>
-                                </ul>
-
-                            </div>
-                        </div>
-                        <div class="col-lg-2 col-md-3 col-6">
-                            <div class="widget clearfix">
-
-                                <h4 class="ls0 mb-3 nott">Get to Know us</h4>
-
-                                <ul class="list-unstyled iconlist ml-0">
-                                    <li><a href="#">Corporate</a></li>
-                                    <li><a href="#">Agency</a></li>
-                                    <li><a href="#">eCommerce</a></li>
-                                    <li><a href="#">Personal</a></li>
-                                    <li><a href="#">OnePage</a></li>
-                                </ul>
-
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-8">
-                            <div class="widget clearfix">
-
-                                <h4 class="ls0 mb-3 nott">Subscribe Now</h4>
-                                <div class="widget subscribe-widget mt-2 clearfix">
-                                    <p class="mb-4"><strong>Subscribe</strong> to Our Newsletter to get Important News, Amazing Offers &amp; Inside Scoops:</p>
-                                    <div class="widget-subscribe-form-result"></div>
-                                    <form id="widget-subscribe-form" action="include/subscribe.php" method="post" class="mt-1 nobottommargin d-flex">
-                                        <input type="email" id="widget-subscribe-form-email" name="widget-subscribe-form-email" class="form-control sm-form-control required email" placeholder="Enter your Email Address">
-
-                                        <button class="button nott t400 ml-1 my-0" type="submit">Subscribe Now</button>
-                                    </form>
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div>
-
-                </div><!-- .footer-widgets-wrap end -->
-
-            </div>
+           
+            
 
             <!-- Copyrights
-        ============================================= -->
+            ============================================= -->
             <div id="copyrights" class="nobg">
 
                 <div class="container clearfix">
@@ -483,13 +358,17 @@
     ============================================= -->
     <script src="~/Content/js/jquery.js"></script>
     <script src="~/Content/js/plugins.js"></script>
-
+    <script src="~/Content/js/components/bs-datatable.js"></script>
     <!-- Footer Scripts
-    ============================================= -->
+    
+        ============================================= -->
     <script src="~/Content/js/functions.js"></script>
 
     <!-- ADD-ONS JS FILES -->
     <script>
+        $(document).ready(function () {
+            $('#datatable1').dataTable();
+        });
 
     </script>
 

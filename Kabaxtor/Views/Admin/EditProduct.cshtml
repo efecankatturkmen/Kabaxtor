@@ -1,0 +1,70 @@
+﻿
+@model Kabaxtor.Models.Product
+@{
+    ViewBag.Title = "EditProduct";
+    Layout = "~/Views/Shared/Admin_Layout .cshtml";
+}
+
+<body class="template-contactform-complete template-contactform-success">
+    <div class="content-wrap">
+
+        <div class="container clearfix">
+            @*<div class="form-widget">*@
+                <div class="form-result"></div>
+
+                <div class="form-process"></div>
+
+                @using (Html.BeginForm("EditProduct", "Admin", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+
+                    //for (int i = 0; i < Model.Rows.Count; i++)
+                    //{
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                             
+                                <label for="template-contactform-name"> Urun Adi:  @Html.DisplayFor(model => model.ProductName)<small>*</small></label>
+
+                            </div>
+                            <div class="col-md-6 form-group">
+                               <label for="template-contactform-name">Stok Sayisi <small>*</small></label>
+                            
+                                @*<input type="text" id="template-contactform-name" name="template-contactform-name" value="" class="form-control required" />*@
+                                @Html.EditorFor(model => model.ProductStock, new { htmlAttributes = new { @class = "form-control required", required = "required" } })
+                                @Html.ValidationMessageFor(model=> model.ProductStock, "", new { @class = "text-danger" })
+                            </div>
+
+
+
+                            <div class="col-md-6 form-group">
+                                <label for="template-contactform-name">Satis Fiyati <small>*</small></label>
+                     
+                                @*<input type="text" id="template-contactform-name" name="template-contactform-name" value="" class="form-control required" />*@
+                                @Html.EditorFor(model => model.ProductPrice, new { htmlAttributes = new { @class = "form-control required", required = "required" } })
+                                @Html.ValidationMessageFor(model => model.ProductPrice, "", new { @class = "text-danger" })
+                            </div>
+
+
+
+                            @*<div class="col-12 hidden">
+                        <input type="text" id="template-contactform-botcheck" name="template-contactform-botcheck" value="" class="form-control" />
+                    </div>*@
+
+                            <div class="col-12">
+                                <button type="submit" class="button button-3d nomargin">Ekle</button>
+                                @*<input type="submit" value="Create" class="btn btn-default" />*@
+                            </div>
+
+                            <!-- Form Settings -->
+                            @*<input type="hidden" name="prefix" value="template-contactform-">
+                    <input type="hidden" name="subject" value="Message from Contact Form">*@
+                        </div>
+                    @*}*@
+
+                }
+
+            @*</div>*@
+        </div>
+    </div>
+</body>
+

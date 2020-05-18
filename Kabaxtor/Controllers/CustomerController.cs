@@ -299,7 +299,63 @@ namespace Kabaxtor.Controllers.User
 
 
 
+        //----------------------------------------------------------------------------------------------------------
+        //orders olusturmak icin kullanilir bu method create order details a gitmeli(once orders id olusmasi icin cunku orderdetailste kullanilacak)
+        public ActionResult CreateOrders(Orders ordersInstance, int customerID)
+        {
 
+            using (SqlConnection sqlCon = new SqlConnection(connectionString))
+            {
+
+                sqlCon.Open();
+                string query = "INSERT INTO Orders (OrderDate,CustomerID) VALUES(@OrderDate,CustomerID)";
+                SqlCommand sqlCommand = new SqlCommand(query, sqlCon);
+                sqlCommand.Parameters.AddWithValue("@OrderDate", ordersInstance.OrderDate);
+                sqlCommand.Parameters.AddWithValue("@CustomerID", ordersInstance.CustomerID);
+
+
+
+                sqlCommand.ExecuteNonQuery();
+            }
+
+            return RedirectToAction("CreateOrderDetails");
+        }
+
+        //----------------------------------------------------------------------------------------------------------
+        //order olusturmak icin kullanilir customerin bir urunu satin alma durumu-ship listesine gider(OrderDetails Tablosunda girdi olusur)
+        [HttpGet]
+        public ActionResult CreateOrderDetails()
+        {
+
+            return View(new Orders());
+        }
+        [HttpPost]
+        public ActionResult CreateOrderDetails(OrderDetails orderDetailsInstance, int productID, int ordersID)
+        {
+
+            using (SqlConnection sqlCon = new SqlConnection(connectionString))
+            {
+
+                sqlCon.Open();
+                string query = "INSERT INTO OrderDetails(OrdersID,ProductID,ProductQantity) VALUES(@OrdersID,@ProductID,@ProductQuantity)";
+                SqlCommand sqlCommand = new SqlCommand(query, sqlCon);
+                sqlCommand.Parameters.AddWithValue("@OrdersID", ordersID);
+                sqlCommand.Parameters.AddWithValue("@ProductID", productID);
+                sqlCommand.Parameters.AddWithValue("@ProductQuantity", orderDetailsInstance.ProductQuantitiy);
+
+
+                sqlCommand.ExecuteNonQuery();
+            }
+
+
+            return RedirectToAction("Index");
+
+
+
+
+
+
+        }
 
     }
 }

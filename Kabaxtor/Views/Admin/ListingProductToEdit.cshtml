@@ -1,0 +1,67 @@
+﻿@model System.Data.DataTable
+@{
+    ViewBag.Title = "ListingProduct";
+    Layout = "~/Views/Shared/Admin_Layout .cshtml";
+}
+
+<section id="content">
+
+    <div class="content-wrap">
+
+        <div class="container clearfix">
+
+            <div class="table-responsive">
+                <table id="datatable1" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>Urun Ismi </th>
+                            <th>Tarih</th>
+                            <th>Uzunluk</th>
+                            <th>Genislik</th>
+                            <th>Stok Sayisi</th>
+                            <th>Fiyat</th>
+                            <th>Agirlik</th>
+                            <th>Yorum</th>
+                            <th>Duzenle / Sil</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>Urun Ismi </th>
+                            <th>Tarih</th>
+                            <th>Uzunluk</th>
+                            <th>Genislik</th>
+                            <th>Stok Sayisi</th>
+                            <th>Fiyat</th>
+                            <th>Agirlik</th>
+                            <th>Yorum</th>
+                            <th>Duzenle / Sil</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        @for (int i = 0; i < Model.Rows.Count; i++)
+                        {
+                            <tr>
+                                <th>@Model.Rows[i][1]</th>
+                                <th>@Model.Rows[i][2]</th>
+                                <th>@Model.Rows[i][3]</th>
+                                <th>@Model.Rows[i][4]</th>
+                                <th>@Model.Rows[i][6]</th>
+                                <th>@Model.Rows[i][7]</th>
+                                <th>@Model.Rows[i][8]</th>
+                                <th>@Model.Rows[i][9]</th>
+                                <th>  <a href="@Url.Action( "EditProduct","Admin", new { id = Model.Rows[i][0] })" class="btn btn-info" type="button"><i class="fa fa-edit"></i>&nbsp;Düzenle</a>
+                                      <a href="@Url.Action( "DeleteProduct","Admin", new { id = Model.Rows[i][0] })" class="btn btn-danger" type="button"><i class="fa fa-edit"></i>&nbsp;Sil</a></th>
+                            </tr>
+                        }
+
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+    </div>
+
+</section><!-- #content end -->

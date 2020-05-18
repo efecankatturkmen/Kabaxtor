@@ -4392,6 +4392,14 @@
     <Content Include="Views\Shared\Customer_Layout .cshtml" />
     <Content Include="Views\Admin\CreateProduct2.cshtml" />
     <Content Include="Views\Admin\CreateProduct.cshtml" />
+    <Content Include="Views\Admin\CreateShippingInformation.cshtml" />
+    <Content Include="Views\Admin\ListingProduct.cshtml" />
+    <Content Include="Views\Admin\shopitem.cshtml" />
+    <Content Include="Views\Admin\ListingShippingCompanies.cshtml" />
+    <Content Include="Views\Admin\EditProduct.cshtml" />
+    <Content Include="Views\Admin\ListingProductToEdit.cshtml" />
+    <Content Include="Views\Admin\ListingShippingCompaniesToEdit.cshtml" />
+    <Content Include="Views\Admin\EditShipping.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

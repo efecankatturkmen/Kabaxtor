@@ -1,0 +1,60 @@
+﻿
+
+@model System.Data.DataTable
+@{
+    ViewBag.Title = "ListingProduct";
+    Layout = "~/Views/Shared/Admin_Layout .cshtml";
+}
+
+<section id="content">
+
+    <div class="content-wrap">
+
+        <div class="container clearfix">
+
+            <div class="table-responsive">
+                <table id="datatable1" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>Sirket Ismi </th>
+                            <th>Ucret</th>
+                            <th>Telefon</th>
+                            <th>Duzenle / Sil</th>
+
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>Sirket Ismi </th>
+                            <th>Ucret</th>
+                            <th>Telefon</th>
+                            <th>Duzenle / Sil</th>
+
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        @for (int i = 0; i < Model.Rows.Count; i++)
+                        {
+                        <tr>
+                            <th>@Model.Rows[i][1]</th>
+                            <th>@Model.Rows[i][2]</th>
+                            <th>@Model.Rows[i][3]</th>
+                          
+                            <th>
+                                <a href="@Url.Action( "EditShipping","Admin", new { id = Model.Rows[i][0] })" class="btn btn-info" type="button"><i class="fa fa-edit"></i>&nbsp;Düzenle</a>
+                                <a href="@Url.Action( "DeleteShippingInfo","Admin", new { id = Model.Rows[i][0] })" class="btn btn-danger" type="button"><i class="fa fa-edit"></i>&nbsp;Sil</a>
+                            </th>
+
+                        </tr>
+                        }
+
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+    </div>
+
+</section><!-- #content end -->
