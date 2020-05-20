@@ -17,6 +17,7 @@ namespace Kabaxtor.Models
         public string District { get; set; }
         public string Country { get; set; }
         public string City { get; set; }
+        public virtual Customer CustomerID { get; set; }
 
     }
 }

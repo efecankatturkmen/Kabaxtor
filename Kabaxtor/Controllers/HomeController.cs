@@ -29,9 +29,17 @@ namespace Kabaxtor.Controllers
             }
 
 
-
-
             return View(dataTable);
+        }
+        public ActionResult CreateCustomer()
+        {
+          
+            return View();
+        }
+
+        public ActionResult Contact()
+        {
+            return View();
         }
 
     }

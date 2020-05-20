@@ -18,13 +18,16 @@ namespace Kabaxtor.Controllers
         //string connectionString = @"data source=DESKTOP-74T5N7S\SQLSERVER2017EXP;initial catalog = KABAKSTORE; integrated security = True; MultipleActiveResultSets=True";
         // Canki
         string connectionString = @"data source =DESKTOP-4NF9LQ5\SQLEXPRESS;initial catalog = KABAKSTORE; integrated security = True; MultipleActiveResultSets=True";
-
+        public ActionResult AdminDashboard()
+        {
+            return View();
+        }
         //-------------------------------------------------------------------------------------------------------------
         //shipping company uretip shipping tablosuna eklemek
         [HttpGet]
         public ActionResult CreateShippingInformation()
         {
-            return View(new ShippingInformation());
+            return View();
         }
         [HttpPost]
         public ActionResult CreateShippingInformation(ShippingInformation shippingInformationInstance)
@@ -45,7 +48,7 @@ namespace Kabaxtor.Controllers
             }
 
 
-            return RedirectToAction("Index");
+            return RedirectToAction("AdminDashboard");
 
         }
 

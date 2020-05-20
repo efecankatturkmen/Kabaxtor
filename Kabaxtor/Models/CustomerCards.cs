@@ -13,6 +13,7 @@ namespace Kabaxtor.Models
         public string CardNumber { get; set; }
         public string LastDate { get; set; }
         public string Cvc { get; set; }
+        public virtual Customer CustomerID { get; set; }
        
     }
 }

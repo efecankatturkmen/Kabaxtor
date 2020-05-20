@@ -10,8 +10,7 @@ namespace Kabaxtor.Models
         public int CustomerID { get; set; }
         public string CustomerName { get; set; }
         public string CustomerSurname { get; set; }
-        public int CustomerCardID { get; set; }
-        public int CustomerAddressID { get; set; }
+        public string CustomerNickName { get; set; }
         public string CustomerEmail { get; set; }
         public string CustomerPassword { get; set; }
         public DateTime CustomerCreated{ get; set; }

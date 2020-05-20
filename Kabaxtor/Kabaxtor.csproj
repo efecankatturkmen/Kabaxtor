@@ -4336,6 +4336,7 @@
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\CustomerCards.cs" />
     <Compile Include="Models\Delivery.cs" />
+    <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\OrderDetails.cs" />
     <Compile Include="Models\Orders.cs" />
     <Compile Include="Models\Product.cs" />
@@ -4400,6 +4401,9 @@
     <Content Include="Views\Admin\ListingProductToEdit.cshtml" />
     <Content Include="Views\Admin\ListingShippingCompaniesToEdit.cshtml" />
     <Content Include="Views\Admin\EditShipping.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Admin\AdminDashboard.cshtml" />
+    <Content Include="Views\Home\CreateCustomer.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -4411,6 +4415,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Content\js\components\tinymce\langs\" />
     <Folder Include="Views\Customer\" />
+    <Folder Include="Views\LoginModel\" />
     <Folder Include="Views\Product\" />
   </ItemGroup>
   <PropertyGroup>
