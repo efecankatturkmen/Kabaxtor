@@ -203,7 +203,7 @@
                                             </ul>
                                         </li>
                                     </ul>
-                                    <ul class="mega-menu-column border-left-0 col-lg-3">
+                                    @*<ul class="mega-menu-column border-left-0 col-lg-3">
                                         <li class="mega-menu-title">
                                             <a href="#"><div>Sportswear</div></a>
                                             <ul>
@@ -247,7 +247,7 @@
                                             <img class="card-img-top" src="demos/shop/images/menu-image.jpg" alt="image cap">
                                             <a href="#" class="btn btn-link text-left t500 pl-0 nobg"><u>Editor's Pick</u></a>
                                         </li>
-                                    </ul>
+                                    </ul>*@
                                 </div>
                             </li><!-- .mega-menu end -->
                             <li>
@@ -367,7 +367,28 @@
     <!-- ADD-ONS JS FILES -->
     <script>
         $(document).ready(function () {
-            $('#datatable1').dataTable();
+            $('#datatable1').DataTable({
+                initComplete: function () {
+                    this.api().columns([0]).every(function () {
+                        var column = this;
+                        var select = $('<select><option value=""></option></select>')
+                            .appendTo($(column.footer()).empty())
+                            .on('change', function () {
+                                var val = $.fn.dataTable.util.escapeRegex(
+                                    $(this).val()
+                                );
+
+                                column
+                                    .search(val ? '^' + val + '$' : '', true, false)
+                                    .draw();
+                            });
+
+                        column.data().unique().sort().each(function (d, j) {
+                            select.append('<option value="' + d + '">' + d + '</option>')
+                        });
+                    });
+                }
+            });
         });
 
     </script>

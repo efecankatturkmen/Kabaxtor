@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using System.Data;
 using System.Data.SqlClient;
 using Kabaxtor.Models;
+using Kabaxtor.ViewModels;
+using Kabaxtor.Filters;
 
 
 //BU KONTROLLER CUSTOMER ISLEMLERINI YAPAR  ORN. ADDRESS EKLEME, CARD EKLEME ,AD SOYAD EKLEME ,SILME VE GUNCELLEME ISLEMLERI VS.
@@ -20,62 +22,109 @@ namespace Kabaxtor.Controllers.User
         string connectionString = @"data source =DESKTOP-4NF9LQ5\SQLEXPRESS;initial catalog = KABAKSTORE; integrated security = True; MultipleActiveResultSets=True";
 
         //customerdan bilgilerini almak icin kullanilir
+        [AuthFilter]
+        public ActionResult CustomerDashboard()
+        {
+            DataTable dataTable = new DataTable();
+            using (SqlConnection sqlcon = new SqlConnection(connectionString))
+            {
+
+                sqlcon.Open();
+                SqlDataAdapter sqlData = new SqlDataAdapter("SELECT * FROM Product", sqlcon);
+                sqlData.Fill(dataTable);
+
+            }
+            IndexHomeView model = new IndexHomeView
+            {
+                dataTable = dataTable,
+
+            };
+
+
+            return View(model);
+        }
         [HttpGet]
         public ActionResult CreateCustomer()
         {
-            return View(new Customer());
+            return View();
         }
         [HttpPost]
         public ActionResult CreateCustomer(LoginModel model ) {
 
             using (SqlConnection sqlCon = new SqlConnection(connectionString))
             {
-
                 sqlCon.Open();
-                //customer bilgilerini alip ilgili tabloya kaydetme
-                string query = "INSERT INTO Customer (CustomerName,CustomerSurname,CustomerEmail,CustomerPassword,CustomerNickName) VALUES(@CustomerName,@CustomerSurname,@CustomerEmail,@CustomerPassword,@CustomerNickName)";
-                SqlCommand sqlCommand = new SqlCommand(query, sqlCon);
-                sqlCommand.Parameters.AddWithValue("@CustomerName", model.Customer.CustomerName);
-                sqlCommand.Parameters.AddWithValue("@CustomerSurname", model.Customer.CustomerSurname);
-                sqlCommand.Parameters.AddWithValue("@CustomerEmail", model.Customer.CustomerEmail);
-                sqlCommand.Parameters.AddWithValue("@CustomerPassword", model.Customer.CustomerPassword);
-                sqlCommand.Parameters.AddWithValue("@CustomerNickName", model.Customer.CustomerNickName);
+                string check = "SELECT CustomerID FROM Customer WHERE CustomerNickName=@CustomerNickName";
+                SqlCommand sqlCommand4 = new SqlCommand(check, sqlCon);
+                sqlCommand4.Parameters.AddWithValue("@CustomerNickName", model.Customer.CustomerNickName);
+                
+                sqlCommand4.ExecuteScalar();
+                string check2 = "SELECT CustomerID FROM Customer WHERE CustomerEmail=@CustomerEmail ";
+                SqlCommand sqlCommand5 = new SqlCommand(check2, sqlCon);
+                sqlCommand5.Parameters.AddWithValue("@CustomerEmail", model.Customer.CustomerEmail);
+                sqlCommand5.ExecuteScalar();
+                if (check == null && check2==null)
+                {
+                    
+                    //customer bilgilerini alip ilgili tabloya kaydetme
+                    string query = "INSERT INTO Customer (CustomerName,CustomerSurname,CustomerEmail,CustomerPassword,CustomerNickName) VALUES(@CustomerName,@CustomerSurname,@CustomerEmail,@CustomerPassword,@CustomerNickName)";
+                    SqlCommand sqlCommand = new SqlCommand(query, sqlCon);
+                    sqlCommand.Parameters.AddWithValue("@CustomerName", model.Customer.CustomerName);
+                    sqlCommand.Parameters.AddWithValue("@CustomerSurname", model.Customer.CustomerSurname);
+                    sqlCommand.Parameters.AddWithValue("@CustomerEmail", model.Customer.CustomerEmail);
+                    sqlCommand.Parameters.AddWithValue("@CustomerPassword", model.Customer.CustomerPassword);
+                    sqlCommand.Parameters.AddWithValue("@CustomerNickName", model.Customer.CustomerNickName);
 
-                sqlCommand.ExecuteNonQuery();
+                    sqlCommand.ExecuteNonQuery();
 
-                //address bilgilerini alip ilgili tabloya kaydetme
-                string query2 = "INSERT INTO Addresses (AddressType,AddressString,Street,Number,FlatNumber,District,Country,City) VALUES(@AddressType,@AddressString,@Street,@Number,@FlatNumber,@District,@Country,@City)";
-                SqlCommand sqlCommand2 = new SqlCommand(query2, sqlCon);
-                sqlCommand2.Parameters.AddWithValue("@AddressType", model.Adresses.AddressType);
-                sqlCommand2.Parameters.AddWithValue("@AddressString", model.Adresses.AddressString);
-                sqlCommand2.Parameters.AddWithValue("@Street", model.Adresses.Street);
-                sqlCommand2.Parameters.AddWithValue("@Number", model.Adresses.Number);
-                sqlCommand2.Parameters.AddWithValue("@FlatNumber", model.Adresses.FlatNumber);
-                sqlCommand2.Parameters.AddWithValue("@District", model.Adresses.District);
-                sqlCommand2.Parameters.AddWithValue("@Country", model.Adresses.Country);
-                sqlCommand2.Parameters.AddWithValue("@City", model.Adresses.City);
-                sqlCommand2.ExecuteNonQuery();
+                    //address bilgilerini alip ilgili tabloya kaydetme
+                    string query2 = "INSERT INTO Addresses (AddressType,AddressString,Street,Number,FlatNumber,District,Country,City) VALUES(@AddressType,@AddressString,@Street,@Number,@FlatNumber,@District,@Country,@City)";
+                    SqlCommand sqlCommand2 = new SqlCommand(query2, sqlCon);
+                    sqlCommand2.Parameters.AddWithValue("@AddressType", model.Adresses.AddressType);
+                    sqlCommand2.Parameters.AddWithValue("@AddressString", model.Adresses.AddressString);
+                    sqlCommand2.Parameters.AddWithValue("@Street", model.Adresses.Street);
+                    sqlCommand2.Parameters.AddWithValue("@Number", model.Adresses.Number);
+                    sqlCommand2.Parameters.AddWithValue("@FlatNumber", model.Adresses.FlatNumber);
+                    sqlCommand2.Parameters.AddWithValue("@District", model.Adresses.District);
+                    sqlCommand2.Parameters.AddWithValue("@Country", model.Adresses.Country);
+                    sqlCommand2.Parameters.AddWithValue("@City", model.Adresses.City);
+                    sqlCommand2.ExecuteNonQuery();
 
 
-                //1.adresi secme ve customer tablosuna kaydetme
-                string query6 = "SELECT TOP 1 CustomerID FROM Customer ORDER BY CustomerID DESC";
-                SqlCommand sqlCommand6 = new SqlCommand(query6, sqlCon);
-                int tmp2 = (int)sqlCommand6.ExecuteScalar();
+                    //1.adresi secme ve customer tablosuna kaydetme
+                    string query6 = "SELECT TOP 1 CustomerID FROM Customer ORDER BY CustomerID DESC";
+                    SqlCommand sqlCommand6 = new SqlCommand(query6, sqlCon);
+                    int tmp2 = (int)sqlCommand6.ExecuteScalar();
 
-                string query8 = "SELECT TOP 1 AddressID FROM Addresses ORDER BY AddressID DESC";
-                SqlCommand sqlCommand8 = new SqlCommand(query8, sqlCon);
-                int tmp3 = (int)sqlCommand8.ExecuteScalar();
+                    string query8 = "SELECT TOP 1 AddressID FROM Addresses ORDER BY AddressID DESC";
+                    SqlCommand sqlCommand8 = new SqlCommand(query8, sqlCon);
+                    int tmp3 = (int)sqlCommand8.ExecuteScalar();
 
-                string query7 = "UPDATE Addresses SET CustomerID=@CustomerID WHERE AddressID=@AddressID ";
-                SqlCommand sqlCommand7 = new SqlCommand(query7, sqlCon);
-                sqlCommand7.Parameters.AddWithValue("@CustomerID", tmp2);
-                sqlCommand7.Parameters.AddWithValue("@AddressID", tmp3);
+                    string query7 = "UPDATE Addresses SET CustomerID=@CustomerID WHERE AddressID=@AddressID ";
+                    SqlCommand sqlCommand7 = new SqlCommand(query7, sqlCon);
+                    sqlCommand7.Parameters.AddWithValue("@CustomerID", tmp2);
+                    sqlCommand7.Parameters.AddWithValue("@AddressID", tmp3);
 
-                sqlCommand7.ExecuteScalar();
+                    sqlCommand7.ExecuteScalar();
+                }
+                if (check != null)
+                {
+
+                    ViewBag.Result = "Bu Email kullanilmaktadir";
+                    ViewBag.Status = "warning";
+                    return View();
+                }
+                if (check2 != null)
+                {
+
+                    ViewBag.Result = "Bu Email kullanilmaktadir";
+                    ViewBag.Status = "warning";
+                    return View();
+                }
             }
 
 
-            return RedirectToAction("Index");
+            return RedirectToAction("CreateCustomer", "Home");
 
         }
        
@@ -98,7 +147,24 @@ namespace Kabaxtor.Controllers.User
 
 
         }
+        [HttpPost]
+        public ActionResult SignIn(Customer customer)
+        {
+            using (SqlConnection sqlCon = new SqlConnection(connectionString))
+            {
+                sqlCon.Open();
+                string query = "SELECT CustomerID FROM Customer WHERE (CustomerNickName=@CustomerNickName AND CustomerPassword=@CustomerPassword )";
+                SqlCommand sqlCommand = new SqlCommand(query, sqlCon);
+                sqlCommand.Parameters.AddWithValue("@CustomerNickName", customer.CustomerNickName);
+                sqlCommand.Parameters.AddWithValue("@CustomerPassword", customer.CustomerPassword);
+                int tmp = (int)sqlCommand.ExecuteScalar();
 
+                Session["UserID"] = tmp;
+            }
+            
+
+            return RedirectToAction("CustomerDashboard","Customer");
+        }
 
 
 

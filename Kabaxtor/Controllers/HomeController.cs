@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using System.Data;
 using System.Data.SqlClient;
+using Kabaxtor.Models;
+using Kabaxtor.ViewModels;
 
 namespace Kabaxtor.Controllers
 {
@@ -27,15 +29,16 @@ namespace Kabaxtor.Controllers
                 sqlData.Fill(dataTable);
 
             }
+            IndexHomeView model = new IndexHomeView
+            {
+                dataTable = dataTable,
+
+            };
 
 
-            return View(dataTable);
+            return View(model);
         }
-        public ActionResult CreateCustomer()
-        {
-          
-            return View();
-        }
+     
 
         public ActionResult Contact()
         {

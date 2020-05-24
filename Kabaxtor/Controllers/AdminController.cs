@@ -241,7 +241,10 @@ namespace Kabaxtor.Controllers
             }
         }
 
-
+        public ActionResult CreatePet()
+        {
+            return View();
+        }
      
 
 
@@ -262,7 +265,7 @@ namespace Kabaxtor.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CreateProduct(Product productModelInstance, HttpPostedFileBase jpeg, HttpPostedFileBase jpeg2)
         {
-
+            int tmp2;
             using (SqlConnection sqlCon = new SqlConnection(connectionString))
             {
 
@@ -279,17 +282,22 @@ namespace Kabaxtor.Controllers
                 sqlCommand.Parameters.AddWithValue("@ProductComments", productModelInstance.ProductComments);
 
                 sqlCommand.ExecuteNonQuery();
+
+                string query6 = "SELECT TOP 1 ProductID FROM Product ORDER BY ProductID DESC";
+                SqlCommand sqlCommand6 = new SqlCommand(query6, sqlCon);
+                tmp2 = (int)sqlCommand6.ExecuteScalar();
             }
+            
             if (jpeg!=null)
             {
-                var jpegname = productModelInstance.ProductID.ToString();
-                var JpegSavePath = Path.Combine(Server.MapPath("~/Content/demos/shop/images/items/featured/") + jpegname + ".jpeg");
+                var jpegname = tmp2.ToString();
+                var JpegSavePath = Path.Combine(Server.MapPath("~/Content/demos/shop/images/items/featured/") + jpegname + ".jpg");
                 jpeg.SaveAs(JpegSavePath);
             }
             if (jpeg2 != null)
             {
-                var jpegname = productModelInstance.ProductID.ToString();
-                var JpegSavePath = Path.Combine(Server.MapPath("~/Content/demos/shop/images/items/featured/") + jpegname + "-1.jpeg");
+                var jpegname = tmp2.ToString();
+                var JpegSavePath = Path.Combine(Server.MapPath("~/Content/demos/shop/images/items/featured/") + jpegname + "-1.jpg");
                 jpeg.SaveAs(JpegSavePath);
             }
 
@@ -313,6 +321,7 @@ namespace Kabaxtor.Controllers
                 SqlDataAdapter sqlData = new SqlDataAdapter(query, sqlCon);
                 sqlData.SelectCommand.Parameters.AddWithValue("@ProductID", id);
                 sqlData.Fill(dataTable);
+                
             }
             if (dataTable.Rows.Count == 1)
             {

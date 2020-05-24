@@ -31,136 +31,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <link rel="stylesheet" href="~/Content/css/colors.php?color=000000" type="text/css" />
-
+ 
     <!-- Document Title
     ============================================= -->
-    <title>Shop Demo | Canvas</title>
+    <title>Kabaxtor</title>
 
 </head>
 
 <body class="stretched">
-    
+
     <!-- Document Wrapper
     ============================================= -->
     <div id="wrapper" class="clearfix">
 
-        <div class="modal-on-load" data-target="#myModal1"></div>
+        @*<div class="modal-on-load" data-target="#myModal1"></div>*@
 
         <!-- On LOad Modal -->
-        <div class="modal1 mfp-hide subscribe-widget divcenter" id="myModal1" style="max-width: 750px;">
-            <div class="row justify-content-center bg-white align-items-center" style="min-height: 380px;">
-                <div class="col-md-5 p-0">
-                    <div style="background: url('@Url.Content("~/Content")/images/modals/modal1.jpg') no-repeat center right; background-size: cover;  min-height: 380px;"></div>
-                </div>
-                <div class="col-md-7 bg-white p-4">
-                    <div class="heading-block nobottomborder mb-3">
-                        <h3 class="font-secondary nott ">Join Our Newsletter &amp; Get <span class="text-danger">40%</span> Off your First Order</h3>
-                        <span>Get Latest Fashion Updates &amp; Offers</span>
+        @*<div class="modal1 mfp-hide subscribe-widget divcenter" id="myModal1" style="max-width: 750px;">
+                <div class="row justify-content-center bg-white align-items-center" style="min-height: 380px;">
+                    <div class="col-md-5 p-0">
+                        <div style="background: url('@Url.Content("~/Content")/images/modals/modal1.jpg') no-repeat center right; background-size: cover;  min-height: 380px;"></div>
                     </div>
-                    <div class="widget-subscribe-form-result"></div>
-                    <form class="widget-subscribe-form2 mb-2" action="~/Content/include/subscribe.php" method="post">
-                        <input type="email" id="widget-subscribe-form2-email" name="widget-subscribe-form-email" class="form-control required email" placeholder="Enter your Email Address..">
-                        <div class="d-flex justify-content-between align-items-center mt-1">
-                            <button class="button button-dark  bg-dark text-white ml-0" type="submit">Subscribe</button>
-                            <a href="#" class="btn-link" onClick="$.magnificPopup.close();return false;">Don't Show me</a>
+                    <div class="col-md-7 bg-white p-4">
+                        <div class="heading-block nobottomborder mb-3">
+                            <h3 class="font-secondary nott ">Join Our Newsletter &amp; Get <span class="text-danger">40%</span> Off your First Order</h3>
+                            <span>Get Latest Fashion Updates &amp; Offers</span>
                         </div>
-                    </form>
-                    <small class="nobottommargin font-italic text-black-50">*We also hate Spam &amp; Junk Emails.</small>
-                </div>
-            </div>
-        </div>
-
-        <!-- Login Modal -->
-        <div class="modal1 mfp-hide" id="modal-register">
-            <div class="card divcenter" style="max-width: 540px;">
-                <div class="card-header py-3 nobg center">
-                    <h3 class="mb-0 t400">Hello, Welcome Back</h3>
-                </div>
-                <div class="card-body divcenter py-5" style="max-width: 70%;">
-
-                    <a href="#" class="button button-large btn-block si-colored si-facebook nott t400 ls0 center nomargin"><i class="icon-facebook-sign"></i> Log in with Facebook</a>
-
-                    <div class="divider divider-center"><span class="position-relative" style="top: -2px">OR</span></div>
-
-                    <form id="login-form" name="login-form" class="nobottommargin row" action="#" method="post">
-
-                        <div class="col-12">
-                            <input type="text" id="login-form-username" name="login-form-username" value="" class="form-control not-dark" placeholder="Username" />
-                        </div>
-
-                        <div class="col-12 mt-4">
-                            <input type="password" id="login-form-password" name="login-form-password" value="" class="form-control not-dark" placeholder="Password" />
-                        </div>
-
-                        <div class="col-12">
-                            <a href="#" class="fright text-dark t300 mt-2">Forgot Password?</a>
-                        </div>
-
-                        <div class="col-12 mt-4">
-                            <button class="button btn-block nomargin" id="login-form-submit" name="login-form-submit" value="login">Login</button>
-                        </div>
-                    </form>
-                </div>
-                <div class="card-footer py-4 center">
-                    <p class="mb-0">Don't have an account? <a href="#"><u>Sign up</u></a></p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Top Bar
-    ============================================= -->
-        <div id="top-bar" class="dark" style="background-color: #a3a5a7;">
-
-            <div class="container clearfix">
-
-                <div class="row justify-content-between">
-
-                    <div class="col-lg-5 nobottommargin">
-
-                        <p class="nobottommargin d-flex justify-content-center justify-content-lg-start"><strong>Free U.S. Shipping on Order above $99. Easy Returns.</strong></p>
-
-                    </div>
-
-                    <div class="col-lg-7 d-none d-lg-flex justify-content-end">
-
-                        <!-- Top Links
-                    ============================================= -->
-                        <div class="top-links">
-                            <ul>
-                                <li><a href="#">About</a></li>
-                                <li><a href="#">FAQS</a></li>
-                                <li><a href="#">Blogs</a></li>
-                                <li>
-                                    <a href="#">EN</a>
-                                    <ul>
-                                        <li><a href="#"><img src="~/Content/images/icons/flags/french.png" alt="French"> FR</a></li>
-                                        <li><a href="#"><img src="~/Content/images/icons/flags/italian.png" alt="Italian"> IT</a></li>
-                                        <li><a href="#"><img src="~/Content/images/icons/flags/german.png" alt="German"> DE</a></li>
-                                    </ul>
-                                </li>
-                                <li></li>
-                            </ul>
-                        </div><!-- .top-links end -->
-                        <!-- Top Social
-                    ============================================= -->
-                        <div id="top-social">
-                            <ul>
-                                <li><a href="#" class="si-facebook"><span class="ts-icon"><i class="icon-facebook"></i></span><span class="ts-text">Facebook</span></a></li>
-                                <li><a href="#" class="si-instagram"><span class="ts-icon"><i class="icon-instagram2"></i></span><span class="ts-text">Instagram</span></a></li>
-                                <li><a href="tel:+91.11.85412542" class="si-call"><span class="ts-icon"><i class="icon-call"></i></span><span class="ts-text">+91.11.85412542</span></a></li>
-                                <li><a href="mailto:info@canvas.com" class="si-email3"><span class="ts-icon"><i class="icon-envelope-alt"></i></span><span class="ts-text">info@canvas.com</span></a></li>
-                            </ul>
-                        </div><!-- #top-social end -->
-
+                        <div class="widget-subscribe-form-result"></div>
+                        <form class="widget-subscribe-form2 mb-2" action="~/Content/include/subscribe.php" method="post">
+                            <input type="email" id="widget-subscribe-form2-email" name="widget-subscribe-form-email" class="form-control required email" placeholder="Enter your Email Address..">
+                            <div class="d-flex justify-content-between align-items-center mt-1">
+                                <button class="button button-dark  bg-dark text-white ml-0" type="submit">Subscribe</button>
+                                <a href="#" class="btn-link" onClick="$.magnificPopup.close();return false;">Don't Show me</a>
+                            </div>
+                        </form>
+                        <small class="nobottommargin font-italic text-black-50">*We also hate Spam &amp; Junk Emails.</small>
                     </div>
                 </div>
+            </div>*@
 
-            </div>
+      
 
-        </div>
+
 
         <!-- Header
-    ============================================= -->
+        ============================================= -->
         <header id="header" class="full-header clearfix">
 
             <div id="header-wrap">
@@ -170,19 +85,19 @@
                     <div id="primary-menu-trigger"><i class="icon-reorder"></i></div>
 
                     <!-- Logo
-                ============================================= -->
+                    ============================================= -->
                     <div id="logo">
                         <a href="index.html" class="standard-logo"><img src="~/Content/demos/shop/images/logo.png" alt="Canvas Logo"></a>
                         <a href="index.html" class="retina-logo"><img src="~/Content/demos/shop/images/logo@2x.png" alt="Canvas Logo"></a>
                     </div><!-- #logo end -->
                     <!-- Primary Navigation
-                ============================================= -->
+                    ============================================= -->
                     <nav id="primary-menu" class="style-2 with-arrows">
 
                         <ul>
                             <li class="current"><a href="#"><div>Home</div></a></li>
                             <!-- Mega Menu
-                        ============================================= -->
+                            ============================================= -->
                             <li class="mega-menu">
                                 <a href="#"><div>Men</div></a>
                                 <div class="mega-menu-content style-2 clearfix">
@@ -296,7 +211,7 @@
                         </ul>
 
                         <!-- Top Search
-                    ============================================= -->
+                        ============================================= -->
                         <div id="top-search">
                             <a href="#" id="top-search-trigger"><i class="icon-line-search"></i><i class="icon-line-cross"></i></a>
                             <form action="search.html" method="get">
@@ -304,7 +219,7 @@
                             </form>
                         </div><!-- #top-search end -->
                         <!-- Top Cart
-                    ============================================= -->
+                        ============================================= -->
                         <div id="top-cart">
                             <a href="#" id="top-cart-trigger"><i class="icon-line-bag"></i><span>5</span></a>
                             <div class="top-cart-content">
@@ -340,7 +255,7 @@
                             </div>
                         </div><!-- #top-cart end -->
                         <!-- Top Search
-                    ============================================= -->
+                        ============================================= -->
                         <div id="top-account">
                             <a href="#modal-register" data-lightbox="inline"><i class="icon-line2-user mr-1 position-relative" style="top: 1px;"></i><span class="d-none d-sm-inline-block font-primary t500">Login</span></a>
                         </div><!-- #top-search end -->
@@ -353,15 +268,65 @@
 
         </header><!-- #header end -->
         @RenderBody()
+        <!-- Top Bar
+        ============================================= -->
+        <div id="top-bar" class="dark" style="background-color: #a3a5a7;">
 
+            <div class="container clearfix">
+
+                <div class="row justify-content-between">
+
+                    <div class="col-lg-5 nobottommargin">
+
+                        <p class="nobottommargin d-flex justify-content-center justify-content-lg-start"><strong>Free U.S. Shipping on Order above $99. Easy Returns.</strong></p>
+
+                    </div>
+
+                    <div class="col-lg-7 d-none d-lg-flex justify-content-end">
+
+                        <!-- Top Links
+                        ============================================= -->
+                        <div class="top-links">
+                            <ul>
+                                <li><a href="#">About</a></li>
+                                <li><a href="#">FAQS</a></li>
+                                <li><a href="#">Blogs</a></li>
+                                <li>
+                                    <a href="#">EN</a>
+                                    <ul>
+                                        <li><a href="#"><img src="~/Content/images/icons/flags/french.png" alt="French"> FR</a></li>
+                                        <li><a href="#"><img src="~/Content/images/icons/flags/italian.png" alt="Italian"> IT</a></li>
+                                        <li><a href="#"><img src="~/Content/images/icons/flags/german.png" alt="German"> DE</a></li>
+                                    </ul>
+                                </li>
+                                <li></li>
+                            </ul>
+                        </div><!-- .top-links end -->
+                        <!-- Top Social
+                        ============================================= -->
+                        <div id="top-social">
+                            <ul>
+                                <li><a href="#" class="si-facebook"><span class="ts-icon"><i class="icon-facebook"></i></span><span class="ts-text">Facebook</span></a></li>
+                                <li><a href="#" class="si-instagram"><span class="ts-icon"><i class="icon-instagram2"></i></span><span class="ts-text">Instagram</span></a></li>
+                                <li><a href="tel:+91.11.85412542" class="si-call"><span class="ts-icon"><i class="icon-call"></i></span><span class="ts-text">+91.11.85412542</span></a></li>
+                                <li><a href="mailto:info@canvas.com" class="si-email3"><span class="ts-icon"><i class="icon-envelope-alt"></i></span><span class="ts-text">info@canvas.com</span></a></li>
+                            </ul>
+                        </div><!-- #top-social end -->
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
         <!-- Footer
-    ============================================= -->
+        ============================================= -->
         <footer id="footer" class="nobg noborder">
 
             <div class="container clearfix">
 
                 <!-- Footer Widgets
-            ============================================= -->
+                ============================================= -->
                 <div class="footer-widgets-wrap pb-3 border-bottom clearfix">
 
                     <div class="row">
@@ -450,7 +415,7 @@
             </div>
 
             <!-- Copyrights
-        ============================================= -->
+            ============================================= -->
             <div id="copyrights" class="nobg">
 
                 <div class="container clearfix">
@@ -489,6 +454,11 @@
     <script src="~/Content/js/functions.js"></script>
 
     <!-- ADD-ONS JS FILES -->
+    <script type="text/javascript">
+        jQuery(window).load(function () {
+            SEMICOLON.widget.notifications(jQuery('#custom-notification-message'));
+        });
+    </script>
     <script>
 
     </script>

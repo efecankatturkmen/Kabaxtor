@@ -1,7 +1,7 @@
 ﻿@model Kabaxtor.Models.Product
 @{
     ViewBag.Title = "CreateProduct";
-    Layout = "~/Views/Shared/Admin_Layout .cshtml";
+    Layout = "~/Views/Shared/Admin_Layout.cshtml";
 }
 
 <body class="template-contactform-complete template-contactform-success">
@@ -22,9 +22,11 @@
 
                     <div class="col-md-6 form-group">
                         @*<label for="template-contactform-name">Name <small>*</small></label>*@
+
                         @Html.LabelFor(model => model.ProductName)
                         @*<input type="text" id="template-contactform-name" name="template-contactform-name" value="" class="form-control required" />*@
                         @Html.EditorFor(model => model.ProductName, new { htmlAttributes = new { @class = "form-control required", required = "required" } })
+                        @*@Html.EditorFor(x => x.ProductName, new { AllowHtmlAttribute = new { @class= "form-control required" } })*@
                         @Html.ValidationMessageFor(model => model.ProductName, "", new { @class = "text-danger" })
                     </div>
 
@@ -34,7 +36,7 @@
                         @*<label for="template-contactform-name">Name <small>*</small></label>*@
                         @Html.LabelFor(model => model.ProductHeight)
                         @*<input type="text" id="template-contactform-name" name="template-contactform-name" value="" class="form-control required" />*@
-                        @Html.EditorFor(model => model.ProductHeight, new { htmlAttributes = new { @class = "form-control required", required = "required" } })
+                        @Html.EditorFor(model => model.ProductHeight, new { htmlAttributes = new { @class = "form-control required", required = "required", placeholder="metre cinsinden giriniz" } })
                         @Html.ValidationMessageFor(model => model.ProductHeight, "", new { @class = "text-danger" })
                     </div>
                     <div class="col-md-6 form-group">

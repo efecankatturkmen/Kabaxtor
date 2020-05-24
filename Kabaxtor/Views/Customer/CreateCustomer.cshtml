@@ -1,0 +1,165 @@
+﻿@model Kabaxtor.Models.LoginModel
+
+@{
+    ViewBag.Title = "CreateCustomer";
+    Layout = "~/Views/Shared/Customer_Layout.cshtml";
+}
+
+<section id="page-title">
+
+    <div class="container clearfix">
+        <h1>Uyelik Islemleri</h1>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Anasayfa</a></li>
+
+            <li class="breadcrumb-item active" aria-current="page">Uye Ol</li>
+        </ol>
+    </div>
+
+</section><!-- #page-title end -->
+<!-- Content
+============================================= -->
+<section id="content">
+   
+    <div class="content-wrap">
+
+        <div class="container clearfix">
+           
+            <div class="accordion accordion-lg divcenter nobottommargin clearfix" style="max-width: 550px;">
+                @using (Html.BeginForm("CreateCustomer", "Customer", FormMethod.Post))
+                {
+
+                    if (ViewBag.Result == null)
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                     
+                        <div class="acctitle"><i class="acc-closed icon-lock3"></i><i class="acc-open icon-unlock"></i>Uyelik Bilgilerinizi Olusturunuz</div>
+                        <div class="acc_content clearfix">
+                            @*<form id="login-form" name="login-form" class="nobottommargin" action="#" method="post">*@
+                            <div class="col_full">
+                                <label for="login-form-password">  @Html.LabelFor(model => model.Customer.CustomerName) :</label>
+                                @*<input type="text" id="login-form-username" name="login-form-username" value="" class="form-control" />*@
+                                @Html.EditorFor(model => model.Customer.CustomerName, new { htmlAttributes = new { @class = "form-control", type = "text", id = "login-form-username", name = "login-form-username", value = "" } })
+                                @Html.ValidationMessageFor(model => model.Customer.CustomerName, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col_full">
+                                <label for="login-form-password">  @Html.LabelFor(model => model.Customer.CustomerSurname) :</label>
+                                @*<input type="text" id="login-form-username" name="login-form-username" value="" class="form-control" />*@
+                                @Html.EditorFor(model => model.Customer.CustomerSurname, new { htmlAttributes = new { @class = "form-control", type = "text", id = "login-form-username", name = "login-form-username", value = "" } })
+                                @Html.ValidationMessageFor(model => model.Customer.CustomerSurname, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col_full">
+                                <label for="login-form-password">  @Html.LabelFor(model => model.Customer.CustomerNickName) :</label>
+                                @*<input type="text" id="login-form-username" name="login-form-username" value="" class="form-control" />*@
+                                @Html.EditorFor(model => model.Customer.CustomerNickName, new { htmlAttributes = new { @class = "form-control", type = "text", id = "login-form-username", name = "login-form-username", value = "" } })
+                                @Html.ValidationMessageFor(model => model.Customer.CustomerNickName, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col_full">
+                                <label for="login-form-password">  @Html.LabelFor(model => model.Customer.CustomerEmail) :</label>
+                                @*<input type="text" id="login-form-username" name="login-form-username" value="" class="form-control" />*@
+                                @Html.EditorFor(model => model.Customer.CustomerEmail, new { htmlAttributes = new { @class = "form-control", type = "text", id = "login-form-username", name = "login-form-username", value = "" } })
+                                @Html.ValidationMessageFor(model => model.Customer.CustomerEmail, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col_full">
+                                <label for="login-form-password">  @Html.LabelFor(model => model.Customer.CustomerPassword) :</label>
+                                @*<input type="text" id="login-form-username" name="login-form-username" value="" class="form-control" />*@
+                                @Html.EditorFor(model => model.Customer.CustomerPassword, new { htmlAttributes = new { @class = "form-control", type = "text", id = "login-form-username", name = "login-form-username", value = "" } })
+                                @Html.ValidationMessageFor(model => model.Customer.CustomerPassword, "", new { @class = "text-danger" })
+                            </div>
+
+
+
+
+                            @*</form>*@
+                        </div>
+
+                        <div class="acctitle"><i class="acc-closed icon-user4"></i><i class="acc-open icon-ok-sign"></i>Adres Bilgilerinizi Giriniz</div>
+                        <div class="acc_content clearfix">
+                            @*<form id="register-form" name="register-form" class="nobottommargin" action="#" method="post">*@
+                            <div class="col_full">
+                                <label for="login-form-password">  @Html.LabelFor(model => model.Adresses.AddressType) :</label>
+                                @*<input type="text" id="login-form-username" name="login-form-username" value="" class="form-control" />*@
+                                @Html.EditorFor(model => model.Adresses.AddressType, new { htmlAttributes = new { @class = "form-control", type = "text", id = "login-form-username", name = "login-form-username", value = "" } })
+                                @Html.ValidationMessageFor(model => model.Adresses.AddressType, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="col_full">
+                                <label for="login-form-password">  @Html.LabelFor(model => model.Adresses.AddressString) :</label>
+                                @*<input type="text" id="login-form-username" name="login-form-username" value="" class="form-control" />*@
+                                @Html.EditorFor(model => model.Adresses.AddressString, new { htmlAttributes = new { @class = "form-control", type = "text", id = "login-form-username", name = "login-form-username", value = "" } })
+                                @Html.ValidationMessageFor(model => model.Adresses.AddressString, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col_full">
+                                <label for="login-form-password">  @Html.LabelFor(model => model.Adresses.Street) :</label>
+                                @*<input type="text" id="login-form-username" name="login-form-username" value="" class="form-control" />*@
+                                @Html.EditorFor(model => model.Adresses.Street, new { htmlAttributes = new { @class = "form-control", type = "text", id = "login-form-username", name = "login-form-username", value = "" } })
+                                @Html.ValidationMessageFor(model => model.Adresses.Street, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col_full">
+                                <label for="login-form-password">  @Html.LabelFor(model => model.Adresses.Number) :</label>
+                                @*<input type="text" id="login-form-username" name="login-form-username" value="" class="form-control" />*@
+                                @Html.EditorFor(model => model.Adresses.Number, new { htmlAttributes = new { @class = "form-control", type = "text", id = "login-form-username", name = "login-form-username", value = "" } })
+                                @Html.ValidationMessageFor(model => model.Adresses.Number, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col_full">
+                                <label for="login-form-password">  @Html.LabelFor(model => model.Adresses.FlatNumber) :</label>
+                                @*<input type="text" id="login-form-username" name="login-form-username" value="" class="form-control" />*@
+                                @Html.EditorFor(model => model.Adresses.FlatNumber, new { htmlAttributes = new { @class = "form-control", type = "text", id = "login-form-username", name = "login-form-username", value = "" } })
+                                @Html.ValidationMessageFor(model => model.Adresses.FlatNumber, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col_full">
+                                <label for="login-form-password">  @Html.LabelFor(model => model.Adresses.District) :</label>
+                                @*<input type="text" id="login-form-username" name="login-form-username" value="" class="form-control" />*@
+                                @Html.EditorFor(model => model.Adresses.District, new { htmlAttributes = new { @class = "form-control", type = "text", id = "login-form-username", name = "login-form-username", value = "" } })
+                                @Html.ValidationMessageFor(model => model.Adresses.District, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col_full">
+                                <label for="login-form-password">  @Html.LabelFor(model => model.Adresses.Country) :</label>
+                                @*<input type="text" id="login-form-username" name="login-form-username" value="" class="form-control" />*@
+                                @Html.EditorFor(model => model.Adresses.Country, new { htmlAttributes = new { @class = "form-control", type = "text", id = "login-form-username", name = "login-form-username", value = "" } })
+                                @Html.ValidationMessageFor(model => model.Adresses.Country, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col_full">
+                                <label for="login-form-password">  @Html.LabelFor(model => model.Adresses.City) :</label>
+                                @*<input type="text" id="login-form-username" name="login-form-username" value="" class="form-control" />*@
+                                @Html.EditorFor(model => model.Adresses.City, new { htmlAttributes = new { @class = "form-control", type = "text", id = "login-form-username", name = "login-form-username", value = "" } })
+                                @Html.ValidationMessageFor(model => model.Adresses.City, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="col_full nobottommargin">
+                                <button class="button button-3d button-black nomargin" id="register-form-submit" name="register-form-submit" type="submit" value="register">Register Now</button>
+                            </div>
+                            @*</form>*@
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="form-group">
+                            <div class="alert alert-@ViewBag.Status" role="alert">@ViewBag.Result</div>
+                            <a href="#" class="btn btn-info" data-notify-type="info" data-notify-msg="<i class=icon-info-sign></i> Welcome to Canvas Demo!" onclick="SEMICOLON.widget.notifications(this); return false;">Show Info</a>
+                            @*<a data-notify-type="error" data-notify-msg="<i class=icon-remove-sign></i> " onload="SEMICOLON.widget.notifications(this); return true;"></a>*@
+                            <div id="custom-notification-message" data-notify-position="top-right" data-notify-type="error" data-notify-msg='<i class="icon-remove-sign"></i> Patates'></div>
+
+
+                            @if (ViewBag.Status == "warning")
+                            {
+                                <a class="btn btn-info" href="@Url.Action("CreateCustomer","Customer")">Yeniden Dene </a>
+                            }
+                            else
+                            {
+                                <a class="btn btn-success" href="@Url.Action("SignIn","Customer")">Giriş Yap</a>
+                            }
+
+
+
+                        </div>
+                    }
+                }
+            </div>
+
+        </div>
+
+    </div>
+
+</section><!-- #content end -->

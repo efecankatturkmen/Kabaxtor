@@ -4329,6 +4329,7 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
+    <Compile Include="Filters\AuthFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -4336,6 +4337,7 @@
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\CustomerCards.cs" />
     <Compile Include="Models\Delivery.cs" />
+    <Compile Include="Views\ViewModels\IndexHomeView.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\OrderDetails.cs" />
     <Compile Include="Models\Orders.cs" />
@@ -4386,16 +4388,17 @@
     <Content Include="Content\js\components\tinymce\skins\ui\oxide\fonts\tinymce-mobile.woff" />
     <Content Include="Content\js\components\tinymce\skins\ui\oxide\skin.min.css.map" />
     <Content Include="Content\js\components\tinymce\skins\ui\oxide\skin.mobile.min.css.map" />
+    <Content Include="Content\demos\shop\ajax\shop-tem.cshtml" />
     <None Include="packages.config" />
     <Content Include="Views\Shared\Home_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Shared\Admin_Layout .cshtml" />
+    <Content Include="Views\Shared\Admin_Layout.cshtml" />
     <Content Include="Views\Shared\Customer_Layout .cshtml" />
     <Content Include="Views\Admin\CreateProduct2.cshtml" />
     <Content Include="Views\Admin\CreateProduct.cshtml" />
     <Content Include="Views\Admin\CreateShippingInformation.cshtml" />
     <Content Include="Views\Admin\ListingProduct.cshtml" />
-    <Content Include="Views\Admin\shopitem.cshtml" />
+    <Content Include="Views\Home\shopitem.cshtml" />
     <Content Include="Views\Admin\ListingShippingCompanies.cshtml" />
     <Content Include="Views\Admin\EditProduct.cshtml" />
     <Content Include="Views\Admin\ListingProductToEdit.cshtml" />
@@ -4403,7 +4406,8 @@
     <Content Include="Views\Admin\EditShipping.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Admin\AdminDashboard.cshtml" />
-    <Content Include="Views\Home\CreateCustomer.cshtml" />
+    <Content Include="Views\Customer\CreateCustomer.cshtml" />
+    <Content Include="Views\Customer\CustomerDashboard.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -4414,7 +4418,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\js\components\tinymce\langs\" />
-    <Folder Include="Views\Customer\" />
+    <Folder Include="Views\AuthFilter\" />
     <Folder Include="Views\LoginModel\" />
     <Folder Include="Views\Product\" />
   </ItemGroup>
