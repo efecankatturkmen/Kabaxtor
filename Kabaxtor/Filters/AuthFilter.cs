@@ -10,7 +10,7 @@ namespace Kabaxtor.Filters
     {
         public void OnAuthorization(AuthorizationContext filterContext)
         {
-            if (filterContext.HttpContext.Session["UserID"] == null)
+            if (filterContext.HttpContext.Session["customer"] == null)
             {
                 filterContext.Result = new RedirectResult("/Home/Index");
             }

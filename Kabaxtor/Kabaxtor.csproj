@@ -4393,7 +4393,7 @@
     <Content Include="Views\Shared\Home_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Admin_Layout.cshtml" />
-    <Content Include="Views\Shared\Customer_Layout .cshtml" />
+    <Content Include="Views\Shared\Customer_Layout.cshtml" />
     <Content Include="Views\Admin\CreateProduct2.cshtml" />
     <Content Include="Views\Admin\CreateProduct.cshtml" />
     <Content Include="Views\Admin\CreateShippingInformation.cshtml" />

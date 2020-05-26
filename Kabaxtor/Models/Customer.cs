@@ -13,10 +13,11 @@ namespace Kabaxtor.Models
         public string CustomerNickName { get; set; }
         public string CustomerEmail { get; set; }
         public string CustomerPassword { get; set; }
+        public string CustomerPhone { get; set; }
         public DateTime CustomerCreated{ get; set; }
-        public DateTime CountryModified { get; set; }
-        public DateTime CustomerActivate { get; set; }
-        public DateTime CustomerActivateGuid { get; set; }
+        public DateTime CostomerModified { get; set; }
+        public bool CustomerActivate { get; set; }
+        public string CustomerActivateGuid { get; set; }
         public DateTime LastPasswordReset { get; set; }
 
 

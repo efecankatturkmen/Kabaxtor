@@ -25,18 +25,28 @@ namespace Kabaxtor.Controllers.User
         [AuthFilter]
         public ActionResult CustomerDashboard()
         {
+          
+            Customer customer = new Customer();
+            customer = Session["customer"] as Customer;
             DataTable dataTable = new DataTable();
+            
             using (SqlConnection sqlcon = new SqlConnection(connectionString))
             {
 
                 sqlcon.Open();
                 SqlDataAdapter sqlData = new SqlDataAdapter("SELECT * FROM Product", sqlcon);
                 sqlData.Fill(dataTable);
+              
 
             }
+            
+
+
+
             IndexHomeView model = new IndexHomeView
             {
                 dataTable = dataTable,
+                customer = customer
 
             };
 
@@ -148,20 +158,54 @@ namespace Kabaxtor.Controllers.User
 
         }
         [HttpPost]
-        public ActionResult SignIn(Customer customer)
+        public ActionResult SignIn(IndexHomeView model)
         {
+            int tmp;
+            Customer c = new Customer();
+            DataTable dataTable = new DataTable();
             using (SqlConnection sqlCon = new SqlConnection(connectionString))
             {
+                
                 sqlCon.Open();
                 string query = "SELECT CustomerID FROM Customer WHERE (CustomerNickName=@CustomerNickName AND CustomerPassword=@CustomerPassword )";
                 SqlCommand sqlCommand = new SqlCommand(query, sqlCon);
-                sqlCommand.Parameters.AddWithValue("@CustomerNickName", customer.CustomerNickName);
-                sqlCommand.Parameters.AddWithValue("@CustomerPassword", customer.CustomerPassword);
-                int tmp = (int)sqlCommand.ExecuteScalar();
+                sqlCommand.Parameters.AddWithValue("@CustomerNickName", model.customer.CustomerNickName);
+                sqlCommand.Parameters.AddWithValue("@CustomerPassword", model.customer.CustomerPassword);
+                tmp = (int)sqlCommand.ExecuteScalar();
 
-                Session["UserID"] = tmp;
+
+               
             }
-            
+            using (SqlConnection sqlCon = new SqlConnection(connectionString))
+            {
+                sqlCon.Open();
+                string query = "SELECT * FROM Customer WHERE CustomerID=@CustomerID";
+                SqlDataAdapter sqlData = new SqlDataAdapter(query, sqlCon);
+                sqlData.SelectCommand.Parameters.AddWithValue("@CustomerID", tmp);
+                sqlData.Fill(dataTable);
+
+            }
+            if (dataTable.Rows.Count == 1)
+            {
+                c.CustomerID = Convert.ToInt32(dataTable.Rows[0][0].ToString());
+                c.CustomerName = dataTable.Rows[0][1].ToString();
+                c.CustomerSurname = dataTable.Rows[0][2].ToString();
+                c.CustomerEmail = dataTable.Rows[0][3].ToString();
+                c.CustomerNickName = dataTable.Rows[0][4].ToString();
+                c.CustomerPassword = dataTable.Rows[0][5].ToString();
+                c.CustomerPhone = dataTable.Rows[0][6].ToString();
+                c.CustomerCreated = (DateTime)dataTable.Rows[0][7];
+                c.CostomerModified = (DateTime)dataTable.Rows[0][8];
+                c.LastPasswordReset = (DateTime)dataTable.Rows[0][9];
+                c.CustomerActivate = (bool)dataTable.Rows[0][10];
+                c.CustomerActivateGuid = dataTable.Rows[0][11].ToString();
+
+
+
+                //return View(productModelInstance);
+
+            }
+            Session["customer"] = c;
 
             return RedirectToAction("CustomerDashboard","Customer");
         }

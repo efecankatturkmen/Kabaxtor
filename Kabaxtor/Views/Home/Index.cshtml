@@ -62,7 +62,7 @@
                    
                     <label for="login-form-username">  @Html.LabelFor(model => model.customer.CustomerNickName) :</label>
                     @*<input type="text" id="login-form-username" name="login-form-username" value="" class="form-control" />*@
-                    @Html.EditorFor(model => model.customer.CustomerNickName, new { htmlAttributes = new { @class = "form-control not-dark", type = "text", id = "login-form-username", name = "login-form-username", value = "", placeholder="Kullanci Adi" } })
+                    @Html.EditorFor(model => model.customer.CustomerNickName, new { htmlAttributes = new { @class = "form-control not-dark", type = "text", id = "login-form-username", name = "login-form-username", value = "", placeholder="Kullanci Adi" , required="required"} })
                     @Html.ValidationMessageFor(model => model.customer.CustomerNickName, "", new { @class = "text-danger" })
                 </div>
 
@@ -70,7 +70,7 @@
             
                     <label for="login-form-password">  @Html.LabelFor(model => model.customer.CustomerPassword) :</label>
                     @*<input type="text" id="login-form-username" name="login-form-username" value="" class="form-control" />*@
-                    @Html.EditorFor(model => model.customer.CustomerPassword, new { htmlAttributes = new { @class = "form-control not-dark", type = "text", id = "login-form-password", name = "login-form-password", value = "", placeholder = "Kullanci Adi" } })
+                    @Html.EditorFor(model => model.customer.CustomerPassword, new { htmlAttributes = new { @class = "form-control not-dark", type = "text", id = "login-form-password", name = "login-form-password", value = "", placeholder = "Kullanci Adi", required = "required" } })
                     @Html.ValidationMessageFor(model => model.customer.CustomerPassword, "", new { @class = "text-danger" })
                 </div>
 
