@@ -12,5 +12,15 @@ namespace Kabaxtor.ViewModels
     {
         public DataTable dataTable { get; set; }
         public Customer customer { get; set; }
+        public CustomerCards customercard { get; set; }
+        public Addresses  addresses { get; set; }
+        public Delivery delivery { get; set; }
+        public OrderDetails orderDetails { get; set; }
+        public Product product { get; set; }
+        public Orders orders { get; set; }
+        public Statuses status { get; set; }
+        public ShippingInformation shippingInformation { get; set; }
+
+
     }
 }
