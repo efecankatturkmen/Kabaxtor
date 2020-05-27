@@ -359,28 +359,23 @@ namespace Kabaxtor.Controllers.User
             return View(new Customer());
         }
         [HttpPost]
-        public ActionResult CreateCustomerCard(CustomerCards customerCardsInstance, Customer customerInstance,int id) {
-
+        public ActionResult CreateCustomerCard(CustomerCards customerCardsInstance) {
+            Customer customerInstance = new Customer();
+            customerInstance = Session["Customer"] as Customer;
             using (SqlConnection sqlCon = new SqlConnection(connectionString))
             {
 
                 sqlCon.Open();
 
-                string query = "INSERT INTO Customer (CardName,CardHolder,CardNumber,LastDate,Cvc) VALUES (@CardName,@CardHolder,@CardNumber,@LastDate,Cvc)";
+                string query = "INSERT INTO CustomerCards (CardName,CardHolder,CardNumber,LastDate,Cvc,CustomerID) VALUES (@CardName,@CardHolder,@CardNumber,@LastDate,Cvc,@CustomerID)";
                 SqlCommand sqlCommand = new SqlCommand(query,sqlCon);
                 sqlCommand.Parameters.AddWithValue("@CardName", customerCardsInstance.CardName);
                 sqlCommand.Parameters.AddWithValue("@CardHolder", customerCardsInstance.CardHolder);
                 sqlCommand.Parameters.AddWithValue("@CardNumber", customerCardsInstance.CardNumber);
                 sqlCommand.Parameters.AddWithValue("@LastDate", customerCardsInstance.LastDate);
                 sqlCommand.Parameters.AddWithValue("@Cvc", customerCardsInstance.Cvc);
+                sqlCommand.Parameters.AddWithValue("@CustomerID",customerInstance.CustomerID);
                 sqlCommand.ExecuteNonQuery();
-
-
-                string query2 = "INSERT INTO Customer (CustomerCardID) VALUES(@CardID) WHERE(CustomerID==@id)";
-                SqlCommand sqlCommand2 = new SqlCommand(query2, sqlCon);
-                sqlCommand2.Parameters.AddWithValue("@CardID",customerCardsInstance.CardID);
-                sqlCommand2.Parameters.AddWithValue("@id", id);
-
             }
 
             return RedirectToAction("Index");
@@ -418,61 +413,116 @@ namespace Kabaxtor.Controllers.User
 
         //----------------------------------------------------------------------------------------------------------
         //orders olusturmak icin kullanilir bu method create order details a gitmeli(once orders id olusmasi icin cunku orderdetailste kullanilacak)
-        public ActionResult CreateOrders(Orders ordersInstance, int customerID)
+        public ActionResult CreateOrders(Orders ordersInstance, int productID,OrderDetails orderDetailsInstance)
         {
+            Customer customerInstance = new Customer();
+            customerInstance = Session["Customer"] as Customer;
 
             using (SqlConnection sqlCon = new SqlConnection(connectionString))
             {
 
                 sqlCon.Open();
-                string query = "INSERT INTO Orders (OrderDate,CustomerID) VALUES(@OrderDate,CustomerID)";
+                string query = "INSERT INTO Orders (OrderDate,CustomerID) VALUES(@OrderDate,@CustomerID)";
                 SqlCommand sqlCommand = new SqlCommand(query, sqlCon);
                 sqlCommand.Parameters.AddWithValue("@OrderDate", ordersInstance.OrderDate);
-                sqlCommand.Parameters.AddWithValue("@CustomerID", ordersInstance.CustomerID);
-
-
-
+                sqlCommand.Parameters.AddWithValue("@CustomerID",customerInstance.CustomerID);
                 sqlCommand.ExecuteNonQuery();
+
+
+                string query2 = "INSERT INTO OrderDetails(ProductID,ProductQantity) VALUES(@ProductID,@ProductQuantity)";
+                SqlCommand sqlCommand2 = new SqlCommand(query2, sqlCon);
+                sqlCommand2.Parameters.AddWithValue("@ProductID", productID);
+                sqlCommand2.Parameters.AddWithValue("@ProductQuantity", orderDetailsInstance.ProductQuantitiy);
+                sqlCommand2.ExecuteNonQuery();
+
+                string query3 = "SELECT ProductStock FROM Product WHERE ProductID=@ProductID";
+                SqlCommand sqlCommand3 = new SqlCommand(query3, sqlCon);
+                sqlCommand3.Parameters.AddWithValue("@ProductID", productID);
+                int tmp = (int)sqlCommand3.ExecuteScalar();
+
+                tmp = tmp - 1;
+
+                string query4 = "INSERT INTO Product (ProductStock) VALUES(@ProductStock) WHERE ProductID=@ProductID";
+                SqlCommand sqlCommand4 = new SqlCommand(query4, sqlCon);
+                sqlCommand4.Parameters.AddWithValue("@ProductID", productID);
+                sqlCommand4.Parameters.AddWithValue("@ProductStock", tmp);
+                sqlCommand4.ExecuteNonQuery();
+
             }
 
-            return RedirectToAction("CreateOrderDetails");
+            return RedirectToAction("ListingShippingCompaniesToSelect");
         }
 
-        //----------------------------------------------------------------------------------------------------------
-        //order olusturmak icin kullanilir customerin bir urunu satin alma durumu-ship listesine gider(OrderDetails Tablosunda girdi olusur)
-        [HttpGet]
-        public ActionResult CreateOrderDetails()
-        {
+        ////listing shipping companies to choose
+        //[HttpGet]
+        //public ActionResult ListingShippingCompaniesToSelect(int id)
+        //{
 
-            return View(new Orders());
-        }
-        [HttpPost]
-        public ActionResult CreateOrderDetails(OrderDetails orderDetailsInstance, int productID, int ordersID)
-        {
+        //    DataTable dataTable = new DataTable();
+        //    using (SqlConnection sqlcon = new SqlConnection(connectionString))
+        //    {
 
-            using (SqlConnection sqlCon = new SqlConnection(connectionString))
-            {
-
-                sqlCon.Open();
-                string query = "INSERT INTO OrderDetails(OrdersID,ProductID,ProductQantity) VALUES(@OrdersID,@ProductID,@ProductQuantity)";
-                SqlCommand sqlCommand = new SqlCommand(query, sqlCon);
-                sqlCommand.Parameters.AddWithValue("@OrdersID", ordersID);
-                sqlCommand.Parameters.AddWithValue("@ProductID", productID);
-                sqlCommand.Parameters.AddWithValue("@ProductQuantity", orderDetailsInstance.ProductQuantitiy);
-
-
-                sqlCommand.ExecuteNonQuery();
-            }
-
-
-            return RedirectToAction("Index");
+        //        sqlcon.Open();
+        //        SqlDataAdapter sqlData = new SqlDataAdapter("SELECT * FROM ShippingInformation", sqlcon);
+        //        sqlData.Fill(dataTable);
 
 
 
+        //        return View(dataTable);
+        //    }
+        //}
+        //[HttpGet]
+        //public ActionResult Payment() {
+
+        //    DataTable dataTable = new DataTable();
+
+        //    Customer customerInstance = new Customer();
+        //    customerInstance = Session["Customer"] as Customer;
+
+        //    using (SqlConnection sqlCon = new SqlConnection(connectionString))
+        //    {
+        //        sqlCon.Open();
+        //        string check = "SELECT CardID FROM Customer WHERE CustomerID=@CustomerID";
+        //        SqlCommand sqlCommand = new SqlCommand(check, sqlCon);
+        //        sqlCommand.Parameters.AddWithValue("@CustomerID", customerInstance.CustomerID);
+        //        sqlCommand.ExecuteNonQuery();
+
+        //        if (check == null)
+        //        {
+        //            return RedirectToAction("CreateCurtomerCard");
+        //        }
+        //        else {
+
+        //            SqlDataAdapter sqlData = new SqlDataAdapter("SELECT * FROM CustomerCard", sqlCon);
+        //            sqlData.Fill(dataTable);
+
+        //            return View(dataTable);
+        //        }
+        //    }
+    
+        //}
+
+        //[HttpPost]
+        //public ActionResult Payment (int id) {
+
+        //    using (SqlConnection sqlCon = new SqlConnection(connectionString))
+        //    {
+
+        //        sqlCon.Open();
+        //        string query = "INSERT INTO Orders (OrderDate,CustomerID) VALUES(@OrderDate,@CustomerID)";
+        //        SqlCommand sqlCommand = new SqlCommand(query, sqlCon);
+        //        sqlCommand.Parameters.AddWithValue("@OrderDate", ordersInstance.OrderDate);
+        //        sqlCommand.Parameters.AddWithValue("@CustomerID", customerInstance.CustomerID);
+        //        sqlCommand.ExecuteNonQuery();
 
 
 
-        }
+        //    }
+
+
+
+        //        return View();
+        //}
 
     }
 }
