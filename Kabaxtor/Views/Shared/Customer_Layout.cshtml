@@ -231,7 +231,7 @@
                                 <div class="top-cart-items">
                                     @foreach (var item in Model.ShopCart)
                                     {
-                                        total += @item.Product.ProductPrice;
+                                        total += @item.Product.ProductPrice * item.OrderDetails.ProductQuantity;
                                         string pic = @item.OrderDetails.ProductID.ToString() + ".jpg";
                                         <div class="top-cart-item clearfix">
                                             <div class="top-cart-item-image">
@@ -240,7 +240,7 @@
                                             </div>
                                             <div class="top-cart-item-desc">
                                                 <a href="#" class="t400">@item.Product.ProductName</a>
-                                                <span class="top-cart-item-price">@item.Product.ProductPrice</span>
+                                                <span class="top-cart-item-price">@item.Product.ProductPrice TL</span>
                                                 <span class="top-cart-item-quantity t600">x @item.OrderDetails.ProductQuantity</span>
                                             </div>
                                         </div>

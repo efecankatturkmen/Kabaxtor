@@ -474,10 +474,11 @@ namespace Kabaxtor.Controllers.User
             {
 
                 sqlCon.Open();
-                string query = "INSERT INTO Orders (OrderDate,CustomerID) VALUES(@OrderDate,@CustomerID)";
+                string query = "INSERT INTO Orders (OrderDate,CustomerID,StatusID) VALUES(@OrderDate,@CustomerID,@StatusID)";
                 SqlCommand sqlCommand = new SqlCommand(query, sqlCon);
                 sqlCommand.Parameters.AddWithValue("@OrderDate", date);
                 sqlCommand.Parameters.AddWithValue("@CustomerID",customerInstance.CustomerID);
+                sqlCommand.Parameters.AddWithValue("@StatusID", 1);
                 sqlCommand.ExecuteNonQuery();
 
 
