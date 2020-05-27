@@ -9,7 +9,7 @@ namespace Kabaxtor.Models
     {
         public int OrdersID { get; set; }
         public int ProductID { get; set; }
-        public int ProductQuantitiy { get; set; }
+        public int ProductQuantity { get; set; }
 
     }
 }

@@ -29,6 +29,7 @@ namespace Kabaxtor.Controllers.User
             Customer customer = new Customer();
             customer = Session["customer"] as Customer;
             DataTable dataTable = new DataTable();
+            List<ShopCart> SCart = new List<ShopCart>();
             
             using (SqlConnection sqlcon = new SqlConnection(connectionString))
             {
@@ -39,15 +40,62 @@ namespace Kabaxtor.Controllers.User
               
 
             }
-            
+            //DataTable ProductTable = new DataTable();
+            //using (SqlConnection sqlCon2 = new SqlConnection(connectionString))
+            //{
+               
+            //    sqlCon2.Open();                           
+            //    string query = "SELECT * FROM Orders WHERE CustomerID=@CustomerID";
+            //    SqlDataAdapter sqlData = new SqlDataAdapter(query, sqlCon2);
+            //    sqlData.SelectCommand.Parameters.AddWithValue("@CustomerID", customer.CustomerID);
+            //    sqlData.Fill(ProductTable);
+            //}
+            DataTable OrderProduct = new DataTable();
+            using (SqlConnection sqlCon2 = new SqlConnection(connectionString))
+            {
+
+                sqlCon2.Open();
+                string query = "SELECT OrderProduct.OrdersID,OrderProduct.ProductID,OrderProduct.ProductQuantity FROM OrderProduct,Orders WHERE Orders.CustomerID=@CustomerID AND OrderProduct.OrdersID=Orders.OrdersID";
+                SqlDataAdapter sqlData = new SqlDataAdapter(query, sqlCon2);
+                sqlData.SelectCommand.Parameters.AddWithValue("@CustomerID", customer.CustomerID);
+                sqlData.Fill(OrderProduct);
+            }
+          
+
+            for (int i = 0; i< OrderProduct.Rows.Count;i++)
+            {
+                int price = 0; ;
+                string name="";
+                OrderDetails cart = new OrderDetails();
+                Product product = new Product();
+                cart.OrdersID = Convert.ToInt32(OrderProduct.Rows[i][0]);
+                cart.ProductID = Convert.ToInt32(OrderProduct.Rows[i][1]);
+                cart.ProductQuantity = Convert.ToInt32(OrderProduct.Rows[i][2]);
+                using (SqlConnection sqlCon3 = new SqlConnection(connectionString))
+                {
+                    sqlCon3.Open();
+                    string query8 = "SELECT ProductName FROM Product WHERE ProductID=@ProductID";
+                    SqlCommand sqlCommand8 = new SqlCommand(query8, sqlCon3);
+                    sqlCommand8.Parameters.AddWithValue("@ProductID", cart.ProductID);
+                    name = (string)sqlCommand8.ExecuteScalar();
+
+                    string query9 = "SELECT ProductPrice FROM Product WHERE ProductID=@ProductID";
+                    SqlCommand sqlCommand9 = new SqlCommand(query9, sqlCon3);
+                    sqlCommand9.Parameters.AddWithValue("@ProductID", cart.ProductID);
+                    price = (int)sqlCommand9.ExecuteScalar();
+                }
+                    product.ProductName = name;
+                    product.ProductPrice = price;
+                    SCart.Add(new ShopCart { OrderDetails = cart, Product=product});
+            }
 
 
 
             IndexHomeView model = new IndexHomeView
             {
                 dataTable = dataTable,
-                customer = customer
-
+                customer = customer,
+                ShopCart = SCart
             };
 
 
@@ -172,6 +220,7 @@ namespace Kabaxtor.Controllers.User
                 sqlCommand.Parameters.AddWithValue("@CustomerNickName", model.customer.CustomerNickName);
                 sqlCommand.Parameters.AddWithValue("@CustomerPassword", model.customer.CustomerPassword);
                 tmp = (int)sqlCommand.ExecuteScalar();
+                // if ekle boyle bir kullanici yok ise yada sifre yanlis ise
 
 
                
@@ -413,44 +462,86 @@ namespace Kabaxtor.Controllers.User
 
         //----------------------------------------------------------------------------------------------------------
         //orders olusturmak icin kullanilir bu method create order details a gitmeli(once orders id olusmasi icin cunku orderdetailste kullanilacak)
-        public ActionResult CreateOrders(Orders ordersInstance, int productID,OrderDetails orderDetailsInstance)
+       
+        public ActionResult FastCreateOrder(int id)
         {
             Customer customerInstance = new Customer();
             customerInstance = Session["Customer"] as Customer;
-
+            DateTime date = DateTime.Now;
+            int quantity = 1;
+            int orderid = 0 ;
             using (SqlConnection sqlCon = new SqlConnection(connectionString))
             {
 
                 sqlCon.Open();
                 string query = "INSERT INTO Orders (OrderDate,CustomerID) VALUES(@OrderDate,@CustomerID)";
                 SqlCommand sqlCommand = new SqlCommand(query, sqlCon);
-                sqlCommand.Parameters.AddWithValue("@OrderDate", ordersInstance.OrderDate);
+                sqlCommand.Parameters.AddWithValue("@OrderDate", date);
                 sqlCommand.Parameters.AddWithValue("@CustomerID",customerInstance.CustomerID);
                 sqlCommand.ExecuteNonQuery();
 
 
-                string query2 = "INSERT INTO OrderDetails(ProductID,ProductQantity) VALUES(@ProductID,@ProductQuantity)";
-                SqlCommand sqlCommand2 = new SqlCommand(query2, sqlCon);
-                sqlCommand2.Parameters.AddWithValue("@ProductID", productID);
-                sqlCommand2.Parameters.AddWithValue("@ProductQuantity", orderDetailsInstance.ProductQuantitiy);
-                sqlCommand2.ExecuteNonQuery();
+                DataTable OrderProductTable = new DataTable();
+                
+                string query12 = "SELECT * FROM OrderProduct,Orders WHERE Orders.CustomerID=@CustomerID AND OrderProduct.OrdersID=Orders.OrdersID AND ProductID=@ProductID";
+                SqlDataAdapter sqlData = new SqlDataAdapter(query12, sqlCon);
+                sqlData.SelectCommand.Parameters.AddWithValue("@CustomerID", customerInstance.CustomerID);
+                sqlData.SelectCommand.Parameters.AddWithValue("@ProductID", id);
+                sqlData.Fill(OrderProductTable);
+
+
+                if (OrderProductTable.Rows.Count >= 1)
+                {
+                    for(int i = 0;i< OrderProductTable.Rows.Count; i++)
+                    {
+                        quantity = Convert.ToInt32(OrderProductTable.Rows[i][2]);
+                        orderid = Convert.ToInt32(OrderProductTable.Rows[i][0]);
+                    }
+                    
+
+                    string query22 = "UPDATE OrderProduct SET ProductQuantity=@ProductQuantity WHERE  ProductID=@ProductID AND OrdersID=@OrdersID";
+                    SqlCommand sqlCommand15 = new SqlCommand(query22, sqlCon);
+                    sqlCommand15.Parameters.AddWithValue("@ProductID", id);
+                    sqlCommand15.Parameters.AddWithValue("@ProductQuantity", quantity+1);
+                    sqlCommand15.Parameters.AddWithValue("@OrdersID", orderid);
+                    sqlCommand15.ExecuteNonQuery();
+                }
+                else
+                {
+                    string query5 = "SELECT TOP 1 OrdersID FROM Orders ORDER BY OrdersID DESC";
+                    SqlCommand sqlCommand5 = new SqlCommand(query5, sqlCon);
+                    int tmp2 = (int)sqlCommand5.ExecuteScalar();
+
+                    string check = "SELECT OrderProduct.OrdersID,OrderProduct.ProductID,OrderProduct.ProductQuantity FROM OrderProduct,Orders WHERE Orders.CustomerID=@CustomerID AND OrderProduct.OrdersID=Orders.OrdersID";
+                    SqlDataAdapter sqlData33 = new SqlDataAdapter(check, sqlCon);
+                    sqlData33.SelectCommand.Parameters.AddWithValue("@CustomerID", customerInstance.CustomerID);
+
+
+                    string query2 = "INSERT INTO OrderProduct  (OrdersID,ProductID,ProductQuantity) VALUES(@OrdersID,@ProductID,@ProductQuantity)";
+                    SqlCommand sqlCommand2 = new SqlCommand(query2, sqlCon);
+                    sqlCommand2.Parameters.AddWithValue("@ProductID", id);
+                    sqlCommand2.Parameters.AddWithValue("@ProductQuantity", quantity);
+                    sqlCommand2.Parameters.AddWithValue("@OrdersID", tmp2);
+                    sqlCommand2.ExecuteNonQuery();
+                }
+               
 
                 string query3 = "SELECT ProductStock FROM Product WHERE ProductID=@ProductID";
                 SqlCommand sqlCommand3 = new SqlCommand(query3, sqlCon);
-                sqlCommand3.Parameters.AddWithValue("@ProductID", productID);
+                sqlCommand3.Parameters.AddWithValue("@ProductID", id);
                 int tmp = (int)sqlCommand3.ExecuteScalar();
 
                 tmp = tmp - 1;
 
-                string query4 = "INSERT INTO Product (ProductStock) VALUES(@ProductStock) WHERE ProductID=@ProductID";
+                string query4 = "UPDATE Product SET ProductStock=@ProductStock WHERE ProductID=@ProductID";
                 SqlCommand sqlCommand4 = new SqlCommand(query4, sqlCon);
-                sqlCommand4.Parameters.AddWithValue("@ProductID", productID);
+                sqlCommand4.Parameters.AddWithValue("@ProductID", id);
                 sqlCommand4.Parameters.AddWithValue("@ProductStock", tmp);
                 sqlCommand4.ExecuteNonQuery();
 
             }
 
-            return RedirectToAction("ListingShippingCompaniesToSelect");
+            return RedirectToAction("CustomerDashboard","Customer");
         }
 
         ////listing shipping companies to choose

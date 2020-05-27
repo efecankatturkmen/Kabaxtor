@@ -4334,9 +4334,11 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Addresses.cs" />
+    <Compile Include="Models\Comments.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\CustomerCards.cs" />
     <Compile Include="Models\Delivery.cs" />
+    <Compile Include="Models\ShopCart.cs" />
     <Compile Include="Views\ViewModels\IndexHomeView.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\OrderDetails.cs" />
@@ -4421,6 +4423,7 @@
     <Folder Include="Views\AuthFilter\" />
     <Folder Include="Views\LoginModel\" />
     <Folder Include="Views\Product\" />
+    <Folder Include="Views\ShopCart\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

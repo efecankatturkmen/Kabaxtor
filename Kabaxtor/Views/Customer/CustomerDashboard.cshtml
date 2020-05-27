@@ -78,7 +78,7 @@
                     </a>
                 </div>
 
-                <div class="col-lg-4">
+                @*<div class="col-lg-4">
                     <a href="#" style="background: url(' @Url.Content("~/Content")/demos/shop/images/categories/4.jpg') no-repeat center center; background-size: cover;">
                         <div class="vertical-middle dark center">
                             <div class="heading-block nomargin noborder">
@@ -107,7 +107,7 @@
                             </div>
                         </div>
                     </a>
-                </div>
+                </div>*@
             </div>
 
             <!-- Featured Carousel
@@ -126,6 +126,8 @@
 
                         string isikli = @Model.dataTable.Rows[i][0].ToString() + ".jpg"; //1.jpg
                         string isiksiz = @Model.dataTable.Rows[i][0].ToString() + "-1.jpg"; //1-1.jpg
+                        int id = Convert.ToInt32(@Model.dataTable.Rows[i][0]);
+
                         <div class="oc-item">
                             <div class="product iproduct clearfix">
                                 <div class="product-image">
@@ -134,21 +136,22 @@
                                     <a href="#"><img src="~/Content/demos/shop/images/items/featured/@isiksiz" alt="@Model.dataTable.Rows[i][1]"></a>
                                     <div class="sale-flash">Satista!</div>
                                     <div class="product-overlay">
-                                        <a href="#" class="add-to-cart"><i class="icon-shopping-cart"></i><span> Add to Cart</span></a>
+                                  
+                                        <a href="@Url.Action("FastCreateOrder","Customer",new { id = id})" class="add-to-cart"><i class="icon-shopping-cart"></i><span> Add to Cart</span></a>
                                         <a href="~/Content/demos/shop/ajax/shop-tem.cshtml" class="item-quick-view" data-lightbox="ajax"><i class="icon-line-search"></i><span>Quick View</span></a>
                                         @*<a class="item-quick-view" data-target="#myModal1"><i class="icon-line-search"></i><span>Quick View</span></a>
-                                            <div class="modal-on-load" data-target="#myModal1"></div>
-                                            <div class="modal1 mfp-hide" id="myModal1">
-                                                <div class="block divcenter" style="background-color: #FFF; max-width: 500px;">
-                                                    <div class="center" style="padding: 50px;">
-                                                        <h3>A Simple Example of a Text Modal</h3>
-                                                        <p class="nobottommargin">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum delectus, tenetur obcaecati porro! Expedita nostrum tempora quia provident perspiciatis inventore, autem eaque, quod explicabo, ipsum, facilis aliquid! Sapiente, possimus quo!</p>
-                                                    </div>
-                                                    <div class="section center nomargin" style="padding: 30px;">
-                                                        <a href="#" class="button" onClick="$.magnificPopup.close();return false;">Close this Modal</a>
-                                                    </div>
-                                                </div>
-                                            </div>*@
+        <div class="modal-on-load" data-target="#myModal1"></div>
+        <div class="modal1 mfp-hide" id="myModal1">
+            <div class="block divcenter" style="background-color: #FFF; max-width: 500px;">
+                <div class="center" style="padding: 50px;">
+                    <h3>A Simple Example of a Text Modal</h3>
+                    <p class="nobottommargin">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum delectus, tenetur obcaecati porro! Expedita nostrum tempora quia provident perspiciatis inventore, autem eaque, quod explicabo, ipsum, facilis aliquid! Sapiente, possimus quo!</p>
+                </div>
+                <div class="section center nomargin" style="padding: 30px;">
+                    <a href="#" class="button" onClick="$.magnificPopup.close();return false;">Close this Modal</a>
+                </div>
+            </div>
+        </div>*@
                                     </div>
                                 </div>
                                 <div class="product-desc">

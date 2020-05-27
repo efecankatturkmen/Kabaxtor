@@ -1,4 +1,5 @@
-﻿
+﻿@using Kabaxtor.ViewModels;
+@model IndexHomeView
 @{
     Layout = null;
 
@@ -45,9 +46,9 @@
     ============================================= -->
     <div id="wrapper" class="clearfix">
 
-        <div class="modal-on-load" data-target="#myModal1"></div>
+        @*<div class="modal-on-load" data-target="#myModal1"></div>
 
-        <!-- On LOad Modal -->
+         On LOad Modal 
         <div class="modal1 mfp-hide subscribe-widget divcenter" id="myModal1" style="max-width: 750px;">
             <div class="row justify-content-center bg-white align-items-center" style="min-height: 380px;">
                 <div class="col-md-5 p-0">
@@ -69,11 +70,11 @@
                     <small class="nobottommargin font-italic text-black-50">*We also hate Spam &amp; Junk Emails.</small>
                 </div>
             </div>
-        </div>
+        </div>*@
 
         <!-- Login Modal -->
         <!-- Header
-    ============================================= -->
+        ============================================= -->
         <header id="header" class="full-header clearfix">
 
             <div id="header-wrap">
@@ -83,19 +84,19 @@
                     <div id="primary-menu-trigger"><i class="icon-reorder"></i></div>
 
                     <!-- Logo
-                ============================================= -->
+                    ============================================= -->
                     <div id="logo">
                         <a href="~/Views/Customer/CustomerDashboard" class="standard-logo"><img src="~/Content/demos/shop/images/logo.png" alt="Canvas Logo"></a>
                         <a href="~/Views/Customer/CustomerDashboard" class="retina-logo"><img src="~/Content/demos/shop/images/logo@2x.png" alt="Canvas Logo"></a>
                     </div><!-- #logo end -->
                     <!-- Primary Navigation
-                ============================================= -->
+                    ============================================= -->
                     <nav id="primary-menu" class="style-2 with-arrows">
 
                         <ul>
                             <li class="current"><a href="#"><div>Home</div></a></li>
                             <!-- Mega Menu
-        ============================================= -->
+                            ============================================= -->
                             <li class="mega-menu">
                                 <a href="#"><div>Men</div></a>
                                 <div class="mega-menu-content style-2 clearfix">
@@ -209,57 +210,58 @@
                         </ul>
 
                         <!--   Top Search
-    ============================================= -->
+                        ============================================= -->
                         <!--<div id="top-search">
-        <a href="#" id="top-search-trigger"><i class="icon-line-search"></i><i class="icon-line-cross"></i></a>
-        <form action="search.html" method="get">
-            <input type="text" name="q" class="form-control" value="" placeholder="Type &amp; Hit Enter..">
-        </form>
-    </div>-->
+                            <a href="#" id="top-search-trigger"><i class="icon-line-search"></i><i class="icon-line-cross"></i></a>
+                            <form action="search.html" method="get">
+                                <input type="text" name="q" class="form-control" value="" placeholder="Type &amp; Hit Enter..">
+                            </form>
+                        </div>-->
                         <!-- #top-search end -->
                         <!-- Top Cart
-    ============================================= -->
+                        ============================================= -->
+                    @{ 
+                        int total = 0;
                         <div id="top-cart">
                             <a href="#" id="top-cart-trigger"><i class="icon-line-bag"></i><span>5</span></a>
                             <div class="top-cart-content">
                                 <div class="top-cart-title">
-                                    <h4>Shopping Cart</h4>
+                                    <h4>Sepetim</h4>
                                 </div>
                                 <div class="top-cart-items">
-                                    <div class="top-cart-item clearfix">
-                                        <div class="top-cart-item-image">
-                                            <a href="#"><img src="demos/shop/images/items/featured/5.jpg" alt="Blue Shoulder Bag" /></a>
+                                    @foreach (var item in Model.ShopCart)
+                                    {
+                                        total += @item.Product.ProductPrice;
+                                        string pic = @item.OrderDetails.ProductID.ToString() + ".jpg";
+                                        <div class="top-cart-item clearfix">
+                                            <div class="top-cart-item-image">
+
+                                                <a href="#"><img src="~/Content/demos/shop/images/items/featured/@pic" alt="img" /></a>
+                                            </div>
+                                            <div class="top-cart-item-desc">
+                                                <a href="#" class="t400">@item.Product.ProductName</a>
+                                                <span class="top-cart-item-price">@item.Product.ProductPrice</span>
+                                                <span class="top-cart-item-quantity t600">x @item.OrderDetails.ProductQuantity</span>
+                                            </div>
                                         </div>
-                                        <div class="top-cart-item-desc">
-                                            <a href="#" class="t400">White athletic shoe</a>
-                                            <span class="top-cart-item-price">$35.00</span>
-                                            <span class="top-cart-item-quantity t600">x 1</span>
-                                        </div>
-                                    </div>
-                                    <div class="top-cart-item clearfix">
-                                        <div class="top-cart-item-image">
-                                            <a href="#" class="t400"><img src="demos/shop/images/items/featured/1.jpg" alt="Leather Bag" /></a>
-                                        </div>
-                                        <div class="top-cart-item-desc">
-                                            <a href="#" class="t400">Round Neck Solid Light Blue Colour T-shirts</a>
-                                            <span class="top-cart-item-price">$12.49</span>
-                                            <span class="top-cart-item-quantity t600">x 2</span>
-                                        </div>
-                                    </div>
+                                    }
                                 </div>
                                 <div class="top-cart-action clearfix">
-                                    <span class="fleft top-checkout-price t600 text-dark">$59.98</span>
-                                    <button class="button button-dark button-small nomargin fright">View Cart</button>
+                                    <span class="fleft top-checkout-price t600 text-dark">@total  TL</span>
+                                    <button class="button button-dark button-small nomargin fright">Sepeti Goruntule</button>
                                 </div>
                             </div>
                         </div><!-- #top-cart end -->
+                        }
                         <!-- Top Search
-    ============================================= -->
-                     
+                        ============================================= -->
+
                         <div id="top-account" class="dropdown">
                             @*<a href="#" class="icon-line2-user mr-1 position-relative" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">&nbsp;@Model.customer.CustomerName</a>*@
-                            <a href="#"  data-toggle="dropdown" data-lightbox="inline"><i class="icon-line2-user mr-1 position-relative" style="top: 1px;"></i><span class="d-none d-sm-inline-block font-primary t500">@Model.customer.CustomerName</span></a>
+                            <a href="#" data-toggle="dropdown" data-lightbox="inline"><i class="icon-line2-user mr-1 position-relative" style="top: 1px;"></i><span class="d-none d-sm-inline-block font-primary t500">@Model.customer.CustomerName</span></a>
                             <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1" style="">
+                                <a class="dropdown-item tleft" href="#">Profilim</a>
+
                                 <a class="dropdown-item tleft" href="#">Profilim</a>
                                 <a class="dropdown-item tleft" href="#">Messages <span class="badge badge-pill badge-secondary fright" style="margin-top: 3px;">5</span></a>
                                 <a class="dropdown-item tleft" href="#">Ayarlar</a>
@@ -276,7 +278,7 @@
         </header><!-- #header end -->
         @RenderBody()
         <!-- Top Bar
-       ============================================= -->
+        ============================================= -->
         <div id="top-bar" class="dark" style="background-color: #a3a5a7;">
 
             <div class="container clearfix">
@@ -292,7 +294,7 @@
                     <div class="col-lg-7 d-none d-lg-flex justify-content-end">
 
                         <!-- Top Links
-                    ============================================= -->
+                        ============================================= -->
                         <div class="top-links">
                             <ul>
                                 <li><a href="#">About</a></li>
@@ -310,7 +312,7 @@
                             </ul>
                         </div><!-- .top-links end -->
                         <!-- Top Social
-                    ============================================= -->
+                        ============================================= -->
                         <div id="top-social">
                             <ul>
                                 <li><a href="#" class="si-facebook"><span class="ts-icon"><i class="icon-facebook"></i></span><span class="ts-text">Facebook</span></a></li>
@@ -327,13 +329,13 @@
 
         </div>
         <!-- Footer
-    ============================================= -->
+        ============================================= -->
         <footer id="footer" class="nobg noborder">
 
             <div class="container clearfix">
 
                 <!-- Footer Widgets
-            ============================================= -->
+                ============================================= -->
                 <div class="footer-widgets-wrap pb-3 border-bottom clearfix">
 
                     <div class="row">
@@ -422,7 +424,7 @@
             </div>
 
             <!-- Copyrights
-        ============================================= -->
+            ============================================= -->
             <div id="copyrights" class="nobg">
 
                 <div class="container clearfix">
