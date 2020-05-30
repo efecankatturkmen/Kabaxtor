@@ -19,6 +19,7 @@ namespace Kabaxtor.Models
         public bool CustomerActivate { get; set; }
         public string CustomerActivateGuid { get; set; }
         public DateTime LastPasswordReset { get; set; }
+        public bool IsAdmin { get; set; }
 
 
     }

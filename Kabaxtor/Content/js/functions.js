@@ -3410,16 +3410,22 @@ var SEMICOLON = SEMICOLON || {};
 
 			$(".plus").off( 'click' ).on( 'click', function(){
 				var productQuantity = $(this).parents('.quantity').find('.qty').val(),
-					quantityStep = $(this).parents('.quantity').find('.qty').attr('step'),
+                    quantityStep = $(this).parents('.quantity').find('.qty').attr('step'),
+                    quantityMax = $(this).parents('.quantity').find('.qty').attr('max'),
 					intRegex = /^\d+$/;
 
 				if( !quantityStep ) { quantityStep = 1; }
 
 				if( intRegex.test( productQuantity ) ) {
-					var productQuantityPlus = Number(productQuantity) + Number(quantityStep);
-					$(this).parents('.quantity').find('.qty').val( productQuantityPlus );
+                   
+                    if (Number(productQuantity) < Number(quantityMax)) {
+                        var productQuantityPlus = Number(productQuantity) + Number(quantityStep);
+                        $(this).parents('.quantity').find('.qty').val(Number(productQuantityPlus));
+                    }
+                
+					
 				} else {
-					$(this).parents('.quantity').find('.qty').val( Number(quantityStep) );
+                    $(this).parents('.quantity').find('.qty').val(Number(quantityStep) );
 				}
 
 				return false;
@@ -3427,13 +3433,14 @@ var SEMICOLON = SEMICOLON || {};
 
 			$(".minus").off( 'click' ).on( 'click', function(){
 				var productQuantity = $(this).parents('.quantity').find('.qty').val(),
-					quantityStep = $(this).parents('.quantity').find('.qty').attr('step'),
+                    quantityStep = $(this).parents('.quantity').find('.qty').attr('step'),
+                    quantityMin = $(this).parents('.quantity').find('.qty').attr('min'),
 					intRegex = /^\d+$/;
 
 				if( !quantityStep ) { quantityStep = 1; }
 
 				if( intRegex.test( productQuantity ) ) {
-					if( Number(productQuantity) > 1 ) {
+                    if (Number(productQuantity) > Number(quantityMin)  ) {
 						var productQuantityMinus = Number(productQuantity) - Number(quantityStep);
 						$(this).parents('.quantity').find('.qty').val( productQuantityMinus );
 					}

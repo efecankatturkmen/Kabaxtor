@@ -13,6 +13,7 @@ namespace Kabaxtor.Models
         public int CustomerID { get; set; }
         public DateTime OrderDate { get; set; }
         public int StatusID { get; set; }
+        public virtual CustomerCards Card { get; set; }
 
     }
 }

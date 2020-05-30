@@ -7,6 +7,7 @@ using Kabaxtor.Models;
 using System.Data;
 using System.Data.SqlClient;
 using System.IO;
+using Kabaxtor.Filters;
 //BU KONTROLLER SHIPPINGINFO, STATUS, DELIVERY VB SEYLERI YARATMAK ICIN KULLANILIR
 
 
@@ -18,6 +19,7 @@ namespace Kabaxtor.Controllers
         //string connectionString = @"data source=DESKTOP-74T5N7S\SQLSERVER2017EXP;initial catalog = KABAKSTORE; integrated security = True; MultipleActiveResultSets=True";
         // Canki
         string connectionString = @"data source =DESKTOP-4NF9LQ5\SQLEXPRESS;initial catalog = KABAKSTORE; integrated security = True; MultipleActiveResultSets=True";
+        [AdminFilter]
         public ActionResult AdminDashboard()
         {
             return View();
@@ -25,6 +27,7 @@ namespace Kabaxtor.Controllers
         //-------------------------------------------------------------------------------------------------------------
         //shipping company uretip shipping tablosuna eklemek
         [HttpGet]
+        [AdminFilter]
         public ActionResult CreateShippingInformation()
         {
             return View();
@@ -56,6 +59,7 @@ namespace Kabaxtor.Controllers
 
         //shipping tablosundaki bilgileri guncelleme(cost ve telephone number)-guncellenmek istenen id yi secme
         [HttpGet]
+        [AdminFilter]
         public ActionResult EditShipping(int id)
         {
 
@@ -136,6 +140,7 @@ namespace Kabaxtor.Controllers
 
         //listing shipping companies to choose
         [HttpGet]
+        [AdminFilter]
         public ActionResult ListingShippingCompanies()
         {
 
@@ -153,6 +158,7 @@ namespace Kabaxtor.Controllers
             }
         }
         [HttpGet]
+        [AdminFilter]
         public ActionResult ListingShippingCompaniesToEdit()
         {
 
@@ -175,6 +181,7 @@ namespace Kabaxtor.Controllers
         //------------------------------------------------------------------------------------------------------------
         //status uretip status tablosuna eklemek
         [HttpGet]
+        [AdminFilter]
         public ActionResult CreateStatuses() {
 
 
@@ -225,6 +232,7 @@ namespace Kabaxtor.Controllers
 
         //listing statuses to choose
         [HttpGet]
+        [AdminFilter]
         public ActionResult ListingStatuses()
         {
 
@@ -241,11 +249,6 @@ namespace Kabaxtor.Controllers
             }
         }
 
-        public ActionResult CreatePet()
-        {
-            return View();
-        }
-     
 
 
       
@@ -254,6 +257,7 @@ namespace Kabaxtor.Controllers
 
             return View();
         }
+        [AdminFilter]
         public ActionResult CreateProduct2()
         {
 
@@ -309,6 +313,7 @@ namespace Kabaxtor.Controllers
 
         //Product tablosundaki bilgileri guncelleme(stock ve price)- guncellenmek istenen id yi secme
         [HttpGet]
+        [AdminFilter]
         public ActionResult EditProduct(int id)
         {
 
@@ -389,7 +394,7 @@ namespace Kabaxtor.Controllers
 
 
         //Databaseteki productlari listelemek icin kullanilir
-     
+        [AdminFilter]
         public ActionResult ListingProduct()
         {
 
@@ -405,7 +410,7 @@ namespace Kabaxtor.Controllers
                 return View(dataTable);
             }
         }
-     
+        [AdminFilter]
         public ActionResult ListingProductToEdit()
         {
 
