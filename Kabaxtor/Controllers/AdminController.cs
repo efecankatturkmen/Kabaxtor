@@ -92,7 +92,7 @@ namespace Kabaxtor.Controllers
 
         //shipping tablosundaki bilgileri guncelleme(cost ve telephone bumber)-secilen id yi guncellenmek istenen alanlara kaydetme
         [HttpPost]
-        public ActionResult EditShipping(ShippingInformation shippingInformationInstance,int id)
+        public ActionResult EditShipping(ShippingInformation shippingInformationInstance, int id)
         {
 
             using (SqlConnection sqlCon = new SqlConnection(connectionString))
@@ -151,7 +151,7 @@ namespace Kabaxtor.Controllers
                 sqlcon.Open();
                 SqlDataAdapter sqlData = new SqlDataAdapter("SELECT * FROM ShippingInformation", sqlcon);
                 sqlData.Fill(dataTable);
-                
+
 
 
                 return View(dataTable);
@@ -182,13 +182,15 @@ namespace Kabaxtor.Controllers
         //status uretip status tablosuna eklemek
         [HttpGet]
         [AdminFilter]
-        public ActionResult CreateStatuses() {
+        public ActionResult CreateStatuses()
+        {
 
 
             return View(new Statuses());
         }
         [HttpPost]
-        public ActionResult CreateStatuses(Statuses statusesInstance) {
+        public ActionResult CreateStatuses(Statuses statusesInstance)
+        {
 
             using (SqlConnection sqlCon = new SqlConnection(connectionString))
             {
@@ -251,7 +253,7 @@ namespace Kabaxtor.Controllers
 
 
 
-      
+
         public ActionResult CreateProduct()
         {
 
@@ -291,8 +293,8 @@ namespace Kabaxtor.Controllers
                 SqlCommand sqlCommand6 = new SqlCommand(query6, sqlCon);
                 tmp2 = (int)sqlCommand6.ExecuteScalar();
             }
-            
-            if (jpeg!=null)
+
+            if (jpeg != null)
             {
                 var jpegname = tmp2.ToString();
                 var JpegSavePath = Path.Combine(Server.MapPath("~/Content/demos/shop/images/items/featured/") + jpegname + ".jpg");
@@ -326,7 +328,7 @@ namespace Kabaxtor.Controllers
                 SqlDataAdapter sqlData = new SqlDataAdapter(query, sqlCon);
                 sqlData.SelectCommand.Parameters.AddWithValue("@ProductID", id);
                 sqlData.Fill(dataTable);
-                
+
             }
             if (dataTable.Rows.Count == 1)
             {
@@ -426,9 +428,27 @@ namespace Kabaxtor.Controllers
                 return View(dataTable);
             }
         }
+        //orderlari adminde listelemek icin(customername,product, price quantity ve statusunu listeler)
+        [HttpPost]
+        public ActionResult ListOrderForAdmin()
+        {
+
+            DataTable dataTable = new DataTable();
+            using (SqlConnection sqlcon = new SqlConnection(connectionString))
+            {
+              
+
+                sqlcon.Open();
+                string query = "SELECT Customer.CustomerName, Product.ProductName, Product.ProductPrice, OrderProduct.ProductQuantity, Statuses.Statuses" +
+                    "FROM Customer,Product,Orders,OrderProduct,Statuses" +
+                    "WHERE Orders.CustomerID=Customer.CustomerID AND OrderProduct.ProductID=Product.ProductID AND OrderProduct.OrdersID=Orders.OrdersID AND Orders.StatusID=Statuses.StatusID";
 
 
+                SqlDataAdapter sqlData = new SqlDataAdapter(query, sqlcon);
+                sqlData.Fill(dataTable);
 
-
+                return View(dataTable);
+            }
+        }
     }
 }
