@@ -20,6 +20,7 @@ namespace Kabaxtor.ViewModels
         public List<ShopCart> ShopCart { get; set; }
         public List<Product> ProductList { get; set; }
         public List<Statuses> StatusList { get; set; }
+        public List<Addresses> AdressList { get; set; }
         public Product product { get; set; }
         public Orders orders { get; set; }
         public Statuses status { get; set; }

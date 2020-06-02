@@ -1,0 +1,163 @@
+﻿@using Kabaxtor.ViewModels;
+@model IndexHomeView
+@{
+    ViewBag.Title = "Cart";
+    Layout = "~/Views/Shared/Customer_Layout.cshtml";
+}
+
+<!-- Content
+        ============================================= -->
+<section id="content">
+
+    <div class="content-wrap">
+
+        <div class="container clearfix">
+            @{ 
+                    int total =0;
+            <div class="table-responsive">
+                <table class="table cart">
+                    <thead>
+                        <tr>
+                            <th class="cart-product-remove">&nbsp;</th>
+                            <th class="cart-product-thumbnail">&nbsp;</th>
+                            <th class="cart-product-name">Urun Adi</th>
+                            <th class="cart-product-price">Urun Birim Fiyati</th>
+                            <th class="cart-product-quantity">Urun Sayisi</th>
+                            <th class="cart-product-subtotal">Toplam Fiyat</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @using (Html.BeginForm("UpdateCart", "Customer", FormMethod.Post))
+                        {
+                            for(int i =0; i< Model.ShopCart.Count;i++)
+                            {
+                                int subtotal = Model.ShopCart[i].Product.ProductPrice * Model.ShopCart[i].OrderDetails.ProductQuantity;
+                                total = total + subtotal;
+                                string isikli = Model.ShopCart[i].OrderDetails.ProductID + ".jpg"; //1.jpg
+                                string stok = (Model.ShopCart[i].Product.ProductStock+ Model.ShopCart[i].OrderDetails.ProductQuantity).ToString();
+                                int val = Model.ShopCart[i].OrderDetails.ProductQuantity;
+                                <tr class="cart_item">
+                                    <td class="cart-product-remove">
+                                        <a href="#" class="remove" title="Remove this item"><i class="icon-trash2"></i></a>
+                                    </td>
+
+                                    <td class="cart-product-thumbnail">
+                                        <a href="#"><img width="64" height="64" src="~/Content/demos/shop/images/items/featured/@isikli" alt="@Model.ShopCart[i].Product.ProductName"></a>
+                                    </td>
+
+                                    <td class="cart-product-name">
+                                        <a href="#">@Model.ShopCart[i].Product.ProductName</a>
+                                    </td>
+
+                                    <td class="cart-product-price">
+                                        <span class="amount">@Model.ShopCart[i].Product.ProductPrice TL</span>
+                                    </td>
+
+                                    <td class="cart-product-quantity">
+                                        <div class="quantity clearfix">
+                                            <input type="button" value="-" class="minus">
+                                            @Html.EditorFor(Model => Model.ShopCart[i].OrderDetails.ProductQuantity, new { htmlAttributes = new { @class = "qty", type = "text", step = "1", @Value = val, min = "1", max = stok, name = "quantity", title = "Qty", size = "4" } })
+                                            <input type="button" value="+" class="plus">
+                                        </div>
+                                    </td>
+
+                                    <td class="cart-product-subtotal">
+                                        <span class="amount">@subtotal TL</span>
+                                    </td>
+                                </tr>
+                            }
+                            <tr class="cart_item">
+                                <td colspan="6">
+                                    <div class="row clearfix">
+                                        <div class="col-lg-4 col-4 nopadding">
+                                            <div class="row">
+                                                @*<div class="col-lg-8 col-7">
+                                                    <input type="text" value="" class="sm-form-control" placeholder="Enter Coupon Code.." />
+                                                </div>
+                                                <div class="col-lg-4 col-5">
+                                                    <a href="#" class="button button-3d button-black nomargin">Apply Coupon</a>
+                                                </div>*@
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-8 col-8 nopadding">
+                                            <button type="submit" class="button button-3d nomargin fright">Karti Guncelle</button>
+                                            <a href="@Url.Action("Checkout","Customer")" class="button button-3d notopmargin fright">Odeme</a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                        </tbody>
+
+                </table>
+            </div>
+
+            <div class="row clearfix">
+                @*<div class="col-lg-6 clearfix">
+                    <h4>Calculate Shipping</h4>
+                    <form>
+                        <div class="col_full">
+                            <select class="sm-form-control">
+                               
+                                <option value="ZM">Zambia</option>
+                                <option value="ZW">Zimbabwe</option>
+
+                            </select>
+                        </div>
+                        <div class="col_half">
+                            <input type="text" class="sm-form-control" placeholder="State / Country" />
+                        </div>
+
+                        <div class="col_half col_last">
+                            <input type="text" class="sm-form-control" placeholder="PostCode / Zip" />
+                        </div>
+                        <a href="#" class="button button-3d nomargin button-black">Update Totals</a>
+                    </form>
+                </div>*@
+
+                <div class="col-lg-12 clearfix">
+                    <h4>Cart Totals</h4>
+
+                    <div class="table-responsive">
+                        <table class="table cart">
+                            <tbody>
+                                @*<tr class="cart_item">
+                                    <td class="cart-product-name">
+                                        <strong>Cart Subtotal</strong>
+                                    </td>
+
+                                    <td class="cart-product-name">
+                                        <span class="amount">$106.94</span>
+                                    </td>
+                                </tr>*@
+                                <tr class="cart_item">
+                                    <td class="cart-product-name">
+                                        <strong>Kargo</strong>
+                                    </td>
+
+                                    <td class="cart-product-name">
+                                        <span class="amount">Ucretsiz</span>
+                                    </td>
+                                </tr>
+                                <tr class="cart_item">
+                                    <td class="cart-product-name">
+                                        <strong>Toplam</strong>
+                                    </td>
+
+                                    <td class="cart-product-name">
+                                        <span class="amount color lead"><strong>@total  TL</strong></span>
+                                    </td>
+                                </tr>
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+            }
+        </div>
+
+    </div>
+
+</section><!-- #content end -->

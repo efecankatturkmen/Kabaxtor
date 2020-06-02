@@ -1,0 +1,302 @@
+﻿@using Kabaxtor.ViewModels;
+@model IndexHomeView
+@{
+    ViewBag.Title = "ShopCart";
+    Layout = "~/Views/Shared/Customer_Layout.cshtml";
+}
+
+<!-- Content
+        ============================================= -->
+<section id="content">
+
+    <div class="content-wrap">
+
+        <div class="container clearfix">
+
+            @*<div class="col_half">
+                <div class="card">
+                    <div class="card-body">
+                        Returning customer? <a href="login-register.html">Click here to login</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col_half col_last">
+                <div class="card">
+                    <div class="card-body">
+                        Have a coupon? <a href="login-register.html">Click here to enter your code</a>
+                    </div>
+                </div>
+            </div>*@
+
+            <div class="clear"></div>
+
+            <div class="row clearfix">
+                @{
+                    int total = 0;
+
+
+
+                    <div class="col-lg-6">
+                        <h4>Siparisleriniz</h4>
+
+                        <div class="table-responsive">
+                            <table class="table cart">
+                                <thead>
+                                    <tr>
+                                        <th class="cart-product-thumbnail">&nbsp;</th>
+                                        <th class="cart-product-name">Urun</th>
+                                        <th class="cart-product-quantity">Urun Sayisi</th>
+                                        <th class="cart-product-subtotal">Toplam</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.ShopCart)
+                                    {
+                                        int subtotal = @item.OrderDetails.ProductQuantity * @item.Product.ProductPrice;
+                                        total = total + subtotal;
+                                        string isikli = item.OrderDetails.ProductID + ".jpg"; //1.jpg
+
+                                        <tr class="cart_item">
+                                            <td class="cart-product-thumbnail">
+                                                <a href="#"><img width="64" height="64" src="~/Content/demos/shop/images/items/featured/@isikli" alt="@item.Product.ProductName"></a>
+                                            </td>
+
+                                            <td class="cart-product-name">
+                                                <a href="#">@item.Product.ProductName</a>
+                                            </td>
+
+                                            <td class="cart-product-quantity">
+                                                <div class="quantity clearfix">
+                                                    @item.OrderDetails.ProductQuantity
+                                                </div>
+                                            </td>
+
+
+                                            <td class="cart-product-subtotal">
+                                                <span class="amount">@subtotal  TL</span>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <h4>Cart Totals</h4>
+
+                        <div class="table-responsive">
+                            <table class="table cart">
+                                <tbody>
+                                    <tr class="cart_item">
+                                        <td class="notopborder cart-product-name">
+                                            <strong>Cart Subtotal</strong>
+                                        </td>
+
+                                        <td class="notopborder cart-product-name">
+                                            <span class="amount">@total TL</span>
+                                        </td>
+                                    </tr>
+                                    <tr class="cart_item">
+                                        <td class="cart-product-name">
+                                            <strong>Shipping</strong>
+                                        </td>
+
+                                        <td class="cart-product-name">
+                                            <span class="amount">Free Delivery</span>
+                                        </td>
+                                    </tr>
+                                    <tr class="cart_item">
+                                        <td class="cart-product-name">
+                                            <strong>Total</strong>
+                                        </td>
+
+                                        <td class="cart-product-name">
+                                            <span class="amount color lead"><strong>@total TL</strong></span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+
+                    </div>
+                    <div class="w-100 bottommargin"></div>
+                }
+              
+
+
+                    <div class="col-lg-6">
+                        <h3>Kart ve Adress Bilgilerinizi Seciniz</h3>
+
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde, vel odio non dicta provident sint ex autem mollitia dolorem illum repellat ipsum aliquid illo similique sapiente fugiat minus ratione.</p>
+
+                        @using (Html.BeginForm("Payment", "Customer", FormMethod.Post, new { @class = "nobottommargin" }))
+                        {
+                            <div class="acctitle"><i class="acc-closed icon-ok-circle"></i><i class="acc-open icon-remove-circle"></i>Adress Seciniz</div>
+                            <div class="acc_content clearfix">
+
+                                @for (int i = 0; i < Model.AdressList.Count; i++)
+                                {
+
+                                    <div>
+                                        <label for="radio-10" class="radio-style-3-label">@Model.AdressList[i].AddressType</label>
+                                        @*<input id="radio-10" class="radio-style" name="radio-group-3" type="radio" checked="">*@
+                                        @Html.RadioButtonFor(m => m.AdressList[i].AddressID, new { @class = "radio-style" })
+                                        <br>
+                                        <a>@Model.AdressList[i].AddressString</a>
+
+                                    </div>
+                                }
+                            </div>
+                            <div class="acctitle"><i class="acc-closed icon-ok-circle"></i><i class="acc-open icon-remove-circle"></i>Kart Seciniz</div>
+                            <div class="acc_content clearfix">
+
+                                @for (int i = 0; i < Model.AdressList.Count; i++)
+                                {
+
+                                }
+                            </div>
+
+
+                            <a href="#" class="button button-3d fright">Siparisi Tamamla</a>
+                        }
+
+                    </div>
+                
+                <div class="col-lg-6">
+
+                    <div class="accordion clearfix">
+                        <div class="acctitle"><i class="acc-closed icon-ok-circle"></i><i class="acc-open icon-remove-circle"></i>Hazir Adress yada Kartiniz yok ise lutfen ekleyiniz</div>
+                        <div class="acc_content clearfix">
+                            </div>
+                            <div class="acctitle"><i class="acc-closed icon-ok-circle"></i><i class="acc-open icon-remove-circle"></i>Adress Seciniz</div>
+                            <div class="acc_content clearfix">
+                                @using (Html.BeginForm("Payment", "Customer", FormMethod.Post, new { @class = "nobottommargin" }))
+                                {
+                                <div class="col_half">
+                               
+                               
+                                    <label for="shipping-form-name">  @Html.LabelFor(model => model.addresses.AddressType) :</label>
+                  
+                                    @Html.EditorFor(model => model.addresses.AddressType, new { htmlAttributes = new { @class = "sm-form-control", type = "text", id = "login-form-username", name = "shipping-form-name", value = "", required = "required" } })
+                                    @Html.ValidationMessageFor(model => model.addresses.AddressType, "", new { @class = "text-danger" })
+                                </div>
+
+                                <div class="col_half col_last">
+                                 
+                                    <label for="shipping-form-lname">  @Html.LabelFor(model => model.addresses.AddressString) :</label>
+                          
+                                    @Html.EditorFor(model => model.addresses.AddressString, new { htmlAttributes = new { @class = "sm-form-control", type = "text", id = "login-form-username", name = "shipping-form-lname", value = "", required = "required" } })
+                                    @Html.ValidationMessageFor(model => model.addresses.AddressString, "", new { @class = "text-danger" })
+                                </div>
+
+                                    <div class="clear"></div>
+
+                                    <div class="col_full">
+
+                                        <label for="shipping-form-lname">  @Html.LabelFor(model => model.addresses.Street) :</label>
+                     
+                                        @Html.EditorFor(model => model.addresses.Street, new { htmlAttributes = new { @class = "sm-form-control", type = "text", id = "login-form-username", name = "shipping-form-lname", value = "", required = "required" } })
+                                        @Html.ValidationMessageFor(model => model.addresses.Street, "", new { @class = "text-danger" })
+                                    </div>
+                                   
+
+                            <div class="col_full">
+                                <label for="shipping-form-lname">  @Html.LabelFor(model => model.addresses.Number) :</label>
+                      
+                                @Html.EditorFor(model => model.addresses.Number, new { htmlAttributes = new { @class = "sm-form-control", type = "text", id = "login-form-username", name = "shipping-form-lname", value = "", required = "required" } })
+                                @Html.ValidationMessageFor(model => model.addresses.Number, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="col_full">
+                                <label for="shipping-form-lname">  @Html.LabelFor(model => model.addresses.FlatNumber) :</label>
+
+                                @Html.EditorFor(model => model.addresses.FlatNumber, new { htmlAttributes = new { @class = "sm-form-control", type = "text", id = "login-form-username", name = "shipping-form-lname", value = "", required = "required" } })
+                                @Html.ValidationMessageFor(model => model.addresses.FlatNumber, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="col_full">
+                                <label for="shipping-form-lname">  @Html.LabelFor(model => model.addresses.District) :</label>
+                   
+                                @Html.EditorFor(model => model.addresses.District, new { htmlAttributes = new { @class = "sm-form-control", type = "text", id = "login-form-username", name = "shipping-form-lname", value = "", required = "required" } })
+                                @Html.ValidationMessageFor(model => model.addresses.District, "", new { @class = "text-danger" })
+                            </div>
+                                   
+
+                    <div class="col_half">
+                        <label for="shipping-form-lname">  @Html.LabelFor(model => model.addresses.Country) :</label>
+
+                        @Html.EditorFor(model => model.addresses.Country, new { htmlAttributes = new { @class = "sm-form-control", type = "text", id = "login-form-username", name = "shipping-form-lname", value = "", required = "required" } })
+                        @Html.ValidationMessageFor(model => model.addresses.Country, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="col_half col_last">
+                        <label for="shipping-form-lname">  @Html.LabelFor(model => model.addresses.City) :</label>
+   
+                        @Html.EditorFor(model => model.addresses.City, new { htmlAttributes = new { @class = "sm-form-control", type = "text", id = "login-form-username", name = "shipping-form-lname", value = "", required = "required" } })
+                        @Html.ValidationMessageFor(model => model.addresses.City, "", new { @class = "text-danger" })
+                    </div>
+                                    <a href="#" class="button button-3d fright">Adress Olustur</a>
+                                }
+                                </div>
+
+                            <div class="acctitle"><i class="acc-closed icon-ok-circle"></i><i class="acc-open icon-remove-circle"></i>Yeni Adres Ekle</div>
+                            <div class="acc_content clearfix">
+                                <h3 class="">Shipping Address</h3>
+
+                                @using (Html.BeginForm("Payment", "Customer", FormMethod.Post, new { @class = "nobottommargin" }))
+                                {
+                                <div class="col_half">
+                                    <label for="shipping-form-lname">  @Html.LabelFor(model => model.addresses.City) :</label>
+
+                                    @Html.EditorFor(model => model.addresses.City, new { htmlAttributes = new { @class = "sm-form-control", type = "text", id = "login-form-username", name = "shipping-form-lname", value = "", required = "required" } })
+                                    @Html.ValidationMessageFor(model => model.addresses.City, "", new { @class = "text-danger" })
+                                </div>
+
+                                <div class="col_half col_last">
+                                    <label for="shipping-form-lname">  @Html.LabelFor(model => model.addresses.City) :</label>
+
+                                    @Html.EditorFor(model => model.addresses.City, new { htmlAttributes = new { @class = "sm-form-control", type = "text", id = "login-form-username", name = "shipping-form-lname", value = "", required = "required" } })
+                                    @Html.ValidationMessageFor(model => model.addresses.City, "", new { @class = "text-danger" })
+                                </div>
+
+                                    <div class="clear"></div>
+
+                                    <div class="col_full">
+                                        <label for="shipping-form-lname">  @Html.LabelFor(model => model.addresses.City) :</label>
+
+                                        @Html.EditorFor(model => model.addresses.City, new { htmlAttributes = new { @class = "sm-form-control", type = "text", id = "login-form-username", name = "shipping-form-lname", value = "", required = "required" } })
+                                        @Html.ValidationMessageFor(model => model.addresses.City, "", new { @class = "text-danger" })
+                                    </div>
+
+                                    <div class="col_full">
+                                        <label for="shipping-form-lname">  @Html.LabelFor(model => model.addresses.City) :</label>
+
+                                        @Html.EditorFor(model => model.addresses.City, new { htmlAttributes = new { @class = "sm-form-control", type = "text", id = "login-form-username", name = "shipping-form-lname", value = "", required = "required" } })
+                                        @Html.ValidationMessageFor(model => model.addresses.City, "", new { @class = "text-danger" })
+                                    </div>
+
+                                    <div class="col_full">
+                                        <label for="shipping-form-lname">  @Html.LabelFor(model => model.addresses.City) :</label>
+
+                                        @Html.EditorFor(model => model.addresses.City, new { htmlAttributes = new { @class = "sm-form-control", type = "text", id = "login-form-username", name = "shipping-form-lname", value = "", required = "required" } })
+                                        @Html.ValidationMessageFor(model => model.addresses.City, "", new { @class = "text-danger" })
+                                    </div>
+
+                                    <a href="#" class="button button-3d fright">Cart Ekle</a>
+                                }
+                                </div>
+                        </div>
+                     
+
+                    </div>
+
+
+
+            </div>
+            </div>
+
+    </div>
+
+</section><!-- #content end -->

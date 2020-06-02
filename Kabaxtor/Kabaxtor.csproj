@@ -4416,6 +4416,8 @@
     <Content Include="Views\Admin\ListOrderForAdmin.cshtml" />
     <Content Include="Views\Admin\MyCustomers.cshtml" />
     <Content Include="Views\Customer\shop-item.cshtml" />
+    <Content Include="Views\Customer\Checkout.cshtml" />
+    <Content Include="Views\Customer\Cart.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

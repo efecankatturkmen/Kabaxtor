@@ -81,7 +81,8 @@ namespace Kabaxtor.Controllers.User
 
             for (int i = 0; i< OrderProduct.Rows.Count;i++)
             {
-                int price = 0; ;
+                int price = 0;
+                int stok = 0; ;
                 string name="";
                 OrderDetails cart = new OrderDetails();
                 Product product = new Product();
@@ -100,14 +101,54 @@ namespace Kabaxtor.Controllers.User
                     SqlCommand sqlCommand9 = new SqlCommand(query9, sqlCon3);
                     sqlCommand9.Parameters.AddWithValue("@ProductID", cart.ProductID);
                     price = (int)sqlCommand9.ExecuteScalar();
+
+                    string query10 = "SELECT ProductStock FROM Product WHERE ProductID=@ProductID";
+                    SqlCommand sqlCommand10 = new SqlCommand(query10, sqlCon3);
+                    sqlCommand10.Parameters.AddWithValue("@ProductID", cart.ProductID);
+                    if (sqlCommand10.ExecuteScalar() != null)
+                    {
+                        stok = (int)sqlCommand10.ExecuteScalar();
+                    }
+                    else
+                    {
+                        stok = 0;
+                    }
+                    
                 }
                     product.ProductName = name;
                     product.ProductPrice = price;
+                    product.ProductStock = stok;
                     SCart.Add(new ShopCart { OrderDetails = cart, Product=product});
             }
 
-
-
+            Session["ShopCart"] = SCart;
+          
+            DataTable AdressTable = new DataTable();
+            List<Addresses> adresslist = new List<Addresses>();
+            using (SqlConnection sqlCon5 = new SqlConnection(connectionString))
+            {
+                sqlCon5.Open();
+                string query5 = "SELECT * FROM Addresses WHERE CustomerID=@CustomerID";
+                SqlDataAdapter sqlData5 = new SqlDataAdapter(query5, sqlCon5);
+                sqlData5.SelectCommand.Parameters.AddWithValue("@CustomerID", customer.CustomerID);
+                sqlData5.Fill(AdressTable);
+            }
+            for (int i =0;i<AdressTable.Rows.Count;i++)
+            {
+                Addresses adress = new Addresses();
+                adress.AddressID = Convert.ToInt32(AdressTable.Rows[i][0]);
+                adress.AddressType = AdressTable.Rows[i][1].ToString();
+                adress.AddressString = AdressTable.Rows[i][2].ToString();
+                adress.Street = AdressTable.Rows[i][3].ToString();
+                adress.Number = AdressTable.Rows[i][4].ToString();
+                adress.FlatNumber = AdressTable.Rows[i][5].ToString();
+                adress.District = AdressTable.Rows[i][6].ToString();
+                adress.Country = AdressTable.Rows[i][7].ToString();
+                adress.City = AdressTable.Rows[i][8].ToString();
+                adress.CustomerID = customer;
+                adresslist.Add(adress);
+            }
+            Session["Adress"] = adresslist;
             IndexHomeView model = new IndexHomeView
             {
                 dataTable = dataTable,
@@ -696,36 +737,131 @@ namespace Kabaxtor.Controllers.User
         //        return View(dataTable);
         //    }
         //}
-        //[HttpGet]
-        //public ActionResult Payment() {
+        [AuthFilter]
+        public ActionResult Cart()
+        {
+            Customer customerInstance = new Customer();
+            customerInstance = Session["Customer"] as Customer;
+            List<ShopCart> shopcart = Session["ShopCart"] as List<ShopCart>;
 
-        //    DataTable dataTable = new DataTable();
+            IndexHomeView model = new IndexHomeView
+            {
+                customer = customerInstance,
+                ShopCart = shopcart,
+            };
 
-        //    Customer customerInstance = new Customer();
-        //    customerInstance = Session["Customer"] as Customer;
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult UpdateCart(IndexHomeView model)
+        {
+            Customer customerInstance = new Customer();
+            customerInstance = Session["Customer"] as Customer;
+            List<ShopCart> shopcart = Session["ShopCart"] as List<ShopCart>;
+     
+            List<ShopCart> SCart = new List<ShopCart>();
+            for (int i =0; i<model.ShopCart.Count; i++)
+            {
+                int oldqty = shopcart[i].OrderDetails.ProductQuantity;
+                int qty = model.ShopCart[i].OrderDetails.ProductQuantity;
+                int change = oldqty - qty;
+                int price = shopcart[i].Product.ProductPrice;
+                int stok = shopcart[i].Product.ProductStock; ;
+                string name = shopcart[i].Product.ProductName;
+                OrderDetails cart = new OrderDetails();
+                Product product = new Product();
+                cart.OrdersID = Convert.ToInt32(shopcart[i].OrderDetails.OrdersID);
+                cart.ProductID = Convert.ToInt32(shopcart[i].OrderDetails.ProductID);
+                cart.ProductQuantity = Convert.ToInt32(model.ShopCart[i].OrderDetails.ProductQuantity);
+                using (SqlConnection sqlCon3 = new SqlConnection(connectionString))
+                {
+                    sqlCon3.Open();
+                    string query8 = "UPDATE Product  SET  ProductStock=@ProductStock WHERE ProductID=@ProductID";
+                    SqlCommand sqlCommand8 = new SqlCommand(query8, sqlCon3);
+                    sqlCommand8.Parameters.AddWithValue("@ProductStock", stok+change);
+                    sqlCommand8.Parameters.AddWithValue("@ProductID", cart.ProductID);
+                    sqlCommand8.ExecuteNonQuery();
+                }
+                product.ProductName = name;
+                product.ProductPrice = price;
+                product.ProductStock = stok+change;
+                SCart.Add(new ShopCart { OrderDetails = cart, Product = product });
+            }
+            Session["ShopCart"] = SCart;
+          
 
-        //    using (SqlConnection sqlCon = new SqlConnection(connectionString))
-        //    {
-        //        sqlCon.Open();
-        //        string check = "SELECT CardID FROM Customer WHERE CustomerID=@CustomerID";
-        //        SqlCommand sqlCommand = new SqlCommand(check, sqlCon);
-        //        sqlCommand.Parameters.AddWithValue("@CustomerID", customerInstance.CustomerID);
-        //        sqlCommand.ExecuteNonQuery();
+            return RedirectToAction("Cart","Customer");
+        }
+        [AuthFilter]
+        public ActionResult Checkout()
+        {
 
-        //        if (check == null)
-        //        {
-        //            return RedirectToAction("CreateCurtomerCard");
-        //        }
-        //        else {
+            Customer customerInstance = new Customer();
+            customerInstance = Session["Customer"] as Customer;
+            List<ShopCart> shopcart = Session["ShopCart"] as List<ShopCart>;
+            List<Addresses> adressList = Session["Adress"] as List<Addresses>;
+            IndexHomeView model = new IndexHomeView
+            {
+                AdressList= adressList,
+                customer = customerInstance,
+                ShopCart = shopcart,
+            };
 
-        //            SqlDataAdapter sqlData = new SqlDataAdapter("SELECT * FROM CustomerCard", sqlCon);
-        //            sqlData.Fill(dataTable);
+            return View(model);
+        }
+        public ActionResult ListAddresses()
+        {
 
-        //            return View(dataTable);
-        //        }
-        //    }
-    
-        //}
+            Customer customerInstance = new Customer();
+            customerInstance = Session["customer"] as Customer;
+            DataTable dataTable = new DataTable();
+
+            using (SqlConnection sqlCon = new SqlConnection(connectionString))
+            {
+                sqlCon.Open();
+                string query = "SELECT * FROM Addresses WHERE CustomerID=@CustomerID";
+                SqlDataAdapter sqlData = new SqlDataAdapter(query, sqlCon);
+                SqlCommand sqlCommand = new SqlCommand(query, sqlCon);
+                sqlCommand.Parameters.AddWithValue("@CustomerID", customerInstance.CustomerID);
+
+                sqlCommand.ExecuteNonQuery();
+                sqlData.Fill(dataTable);
+            }
+
+            return View();
+
+        }
+        [HttpGet]
+        public ActionResult Payment() {
+
+            DataTable dataTable = new DataTable();
+
+            Customer customerInstance = new Customer();
+            customerInstance = Session["Customer"] as Customer;
+
+            using (SqlConnection sqlCon = new SqlConnection(connectionString))
+            {
+                sqlCon.Open();
+                string check = "SELECT CardID FROM Customer WHERE CustomerID=@CustomerID";
+                SqlCommand sqlCommand = new SqlCommand(check, sqlCon);
+                sqlCommand.Parameters.AddWithValue("@CustomerID", customerInstance.CustomerID);
+                sqlCommand.ExecuteNonQuery();
+
+                if (check == null)
+                {
+                    return RedirectToAction("CreateCurtomerCard");
+                }
+                else
+                {
+
+                    SqlDataAdapter sqlData = new SqlDataAdapter("SELECT * FROM CustomerCard", sqlCon);
+                    sqlData.Fill(dataTable);
+               
+                    return View(dataTable);
+                }
+            }
+
+        }
 
         //[HttpPost]
         //public ActionResult Payment (int id) {
