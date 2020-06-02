@@ -130,27 +130,36 @@ namespace Kabaxtor.Controllers.User
 
             using (SqlConnection sqlCon = new SqlConnection(connectionString))
             {
+               
                 sqlCon.Open();
                 string check = "SELECT CustomerID FROM Customer WHERE CustomerNickName=@CustomerNickName";
                 SqlCommand sqlCommand4 = new SqlCommand(check, sqlCon);
                 sqlCommand4.Parameters.AddWithValue("@CustomerNickName", model.Customer.CustomerNickName);
-                
-                sqlCommand4.ExecuteScalar();
+                Guid newGuid = Guid.NewGuid();
+                DateTime Today = DateTime.Now;
+                string nickname = sqlCommand4.ExecuteScalar().ToString();
                 string check2 = "SELECT CustomerID FROM Customer WHERE CustomerEmail=@CustomerEmail ";
                 SqlCommand sqlCommand5 = new SqlCommand(check2, sqlCon);
                 sqlCommand5.Parameters.AddWithValue("@CustomerEmail", model.Customer.CustomerEmail);
-                sqlCommand5.ExecuteScalar();
-                if (check == null && check2==null)
+                string email = sqlCommand5.ExecuteScalar().ToString();
+                if (nickname == null && email == null)
                 {
                     
                     //customer bilgilerini alip ilgili tabloya kaydetme
-                    string query = "INSERT INTO Customer (CustomerName,CustomerSurname,CustomerEmail,CustomerPassword,CustomerNickName,IsAdmin) VALUES(@CustomerName,@CustomerSurname,@CustomerEmail,@CustomerPassword,@CustomerNickName,@IsAdmin)";
+                    string query = "INSERT INTO Customer (CustomerName,CustomerSurname,CustomerEmail,CustomerPhone,CustomerPassword,CustomerNickName,CustomerCreate,CustomerModified,LastPasswordReset,CustomerActivate,CustomerActivateGuid,IsAdmin) VALUES(@CustomerName,@CustomerSurname,@CustomerEmail,@CustomerPhone,@CustomerPassword,@CustomerNickName,@CustomerCreate,@CustomerModified,@LastPasswordReset,@CustomerActivate,@CustomerActivateGuid,@IsAdmin)";
                     SqlCommand sqlCommand = new SqlCommand(query, sqlCon);
                     sqlCommand.Parameters.AddWithValue("@CustomerName", model.Customer.CustomerName);
                     sqlCommand.Parameters.AddWithValue("@CustomerSurname", model.Customer.CustomerSurname);
                     sqlCommand.Parameters.AddWithValue("@CustomerEmail", model.Customer.CustomerEmail);
+                    sqlCommand.Parameters.AddWithValue("@CustomerPhone", model.Customer.CustomerPhone);
                     sqlCommand.Parameters.AddWithValue("@CustomerPassword", model.Customer.CustomerPassword);
                     sqlCommand.Parameters.AddWithValue("@CustomerNickName", model.Customer.CustomerNickName);
+                    sqlCommand.Parameters.AddWithValue("@CustomerCreate", Today);
+                    sqlCommand.Parameters.AddWithValue("@CustomerModified", Today);
+                    sqlCommand.Parameters.AddWithValue("@LastPasswordReset", Today);
+                    sqlCommand.Parameters.AddWithValue("@CustomerActivate", false);
+                    sqlCommand.Parameters.AddWithValue("@CustomerActivateGuid", newGuid);
+            
                     sqlCommand.Parameters.AddWithValue("@IsAdmin", false);
 
                     sqlCommand.ExecuteNonQuery();
@@ -185,14 +194,14 @@ namespace Kabaxtor.Controllers.User
 
                     sqlCommand7.ExecuteScalar();
                 }
-                if (check != null)
+                if (nickname != null)
                 {
 
-                    ViewBag.Result = "Bu Email kullanilmaktadir";
+                    ViewBag.Result = "Bu Kullanci Adi kullanilmaktadir";
                     ViewBag.Status = "warning";
                     return View();
                 }
-                if (check2 != null)
+                if (email != null)
                 {
 
                     ViewBag.Result = "Bu Email kullanilmaktadir";

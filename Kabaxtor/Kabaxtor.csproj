@@ -4320,6 +4320,8 @@
     <Content Include="Content\js\plugins\jquery.youtube.js" />
     <Content Include="Content\style.css" />
     <Content Include="Global.asax" />
+    <Content Include="Views\Customer\shop-item-no-stock.html" />
+    <Content Include="Views\Customer\shop-item.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -4391,7 +4393,7 @@
     <Content Include="Content\js\components\tinymce\skins\ui\oxide\fonts\tinymce-mobile.woff" />
     <Content Include="Content\js\components\tinymce\skins\ui\oxide\skin.min.css.map" />
     <Content Include="Content\js\components\tinymce\skins\ui\oxide\skin.mobile.min.css.map" />
-    <Content Include="Content\demos\shop\ajax\shop-tem.cshtml" />
+    <Content Include="Content\demos\shop\ajax\shop-item.cshtml" />
     <None Include="packages.config" />
     <Content Include="Views\Shared\Home_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
@@ -4411,6 +4413,9 @@
     <Content Include="Views\Admin\AdminDashboard.cshtml" />
     <Content Include="Views\Customer\CreateCustomer.cshtml" />
     <Content Include="Views\Customer\CustomerDashboard.cshtml" />
+    <Content Include="Views\Admin\ListOrderForAdmin.cshtml" />
+    <Content Include="Views\Admin\MyCustomers.cshtml" />
+    <Content Include="Views\Customer\shop-item.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

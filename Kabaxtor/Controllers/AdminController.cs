@@ -8,6 +8,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 using Kabaxtor.Filters;
+using Kabaxtor.ViewModels;
 //BU KONTROLLER SHIPPINGINFO, STATUS, DELIVERY VB SEYLERI YARATMAK ICIN KULLANILIR
 
 
@@ -429,26 +430,112 @@ namespace Kabaxtor.Controllers
             }
         }
         //orderlari adminde listelemek icin(customername,product, price quantity ve statusunu listeler)
-        [HttpPost]
+      
         public ActionResult ListOrderForAdmin()
         {
 
             DataTable dataTable = new DataTable();
+            DataTable StatusTable = new DataTable();
+            List<SelectListItem> StatusSelect = new List<SelectListItem>();
+            List<Statuses> StatusList = new List<Statuses>();
             using (SqlConnection sqlcon = new SqlConnection(connectionString))
             {
               
 
                 sqlcon.Open();
-                string query = "SELECT Customer.CustomerName, Product.ProductName, Product.ProductPrice, OrderProduct.ProductQuantity, Statuses.Statuses" +
-                    "FROM Customer,Product,Orders,OrderProduct,Statuses" +
-                    "WHERE Orders.CustomerID=Customer.CustomerID AND OrderProduct.ProductID=Product.ProductID AND OrderProduct.OrdersID=Orders.OrdersID AND Orders.StatusID=Statuses.StatusID";
+                //string query = "SELECT Customer.CustomerName, Product.ProductName, Product.ProductPrice, OrderProduct.ProductQuantity, Statuses.Statuses" +
+                //    "FROM Customer,Product,Orders,OrderProduct,Statuses" +
+                //    "WHERE Orders.CustomerID=Customer.CustomerID AND OrderProduct.ProductID=Product.ProductID AND OrderProduct.OrdersID=Orders.OrdersID AND Orders.StatusID=Statuses.StatusID";
+                string query2 = " SELECT Customer.CustomerName, Product.ProductName, Product.ProductPrice, OrderProduct.ProductQuantity, Statuses.Statuses,Orders.OrdersID FROM Customer, Product, Orders, OrderProduct, Statuses WHERE Orders.CustomerID = Customer.CustomerID AND OrderProduct.ProductID = Product.ProductID AND OrderProduct.OrdersID = Orders.OrdersID AND Orders.StatusID = Statuses.StatusID";
 
-
-                SqlDataAdapter sqlData = new SqlDataAdapter(query, sqlcon);
+                SqlDataAdapter sqlData = new SqlDataAdapter(query2, sqlcon);
                 sqlData.Fill(dataTable);
 
-                return View(dataTable);
+                string query3 = "SELECT * FROM Statuses";
+                SqlDataAdapter sqlData2 = new SqlDataAdapter(query3, sqlcon);
+                sqlData2.Fill(StatusTable);
+                for(int i = 0; i < StatusTable.Rows.Count; i++)
+                {
+                    Statuses status = new Statuses();
+                    status.StatusID = Convert.ToInt32( StatusTable.Rows[i][0]);
+                    status.StatusName = StatusTable.Rows[i][1].ToString();
+                    StatusSelect.Add(new SelectListItem() { Text = status.StatusName, Value = status.StatusID.ToString() });
+                    
+                }
+
+
+                IndexHomeView model = new IndexHomeView
+                {
+                    StatusList = StatusList,
+                    SelectList = StatusSelect,
+                    dataTable = dataTable
+                };
+
+
+                return View(model);
             }
+        }
+        public ActionResult ChangeStatus(IndexHomeView model, int id)
+        {
+            DataTable dataTable = new DataTable();
+            using (SqlConnection sqlcon = new SqlConnection(connectionString))
+            {
+
+                sqlcon.Open();
+                string query2 = "UPDATE Orders SET StatusID=@StatusID WHERE OrdersID=@OrdersID";
+                SqlCommand sqlCommand2 = new SqlCommand(query2, sqlcon);
+                sqlCommand2.Parameters.AddWithValue("@StatusID", model.status.StatusID);
+                sqlCommand2.Parameters.AddWithValue("@OrdersID", id);
+                sqlCommand2.ExecuteNonQuery();
+
+
+            }
+
+
+            return RedirectToAction("ListOrderForAdmin", "Admin");
+        }
+
+        public ActionResult MyCustomers()
+        {
+            List<Customer> CustomerList = new List<Customer>();
+            DataTable dataTable = new DataTable();
+            using (SqlConnection sqlcon = new SqlConnection(connectionString))
+            {
+
+                sqlcon.Open();
+                string query2 = "SELECT * FROM Customer";
+                SqlDataAdapter sqlData2 = new SqlDataAdapter(query2, sqlcon);
+                sqlData2.Fill(dataTable);
+         
+
+
+            }
+            for(int i= 0; i < dataTable.Rows.Count; i++)
+            {
+                Customer c = new Customer();
+                c.CustomerID = Convert.ToInt32(dataTable.Rows[i][0].ToString());
+                c.CustomerName = dataTable.Rows[i][1].ToString();
+                c.CustomerSurname = dataTable.Rows[i][2].ToString();
+                c.CustomerEmail = dataTable.Rows[i][3].ToString();
+                c.CustomerNickName = dataTable.Rows[i][4].ToString();
+                c.CustomerPassword = dataTable.Rows[i][5].ToString();
+                c.CustomerPhone = dataTable.Rows[i][6].ToString();
+                c.CustomerCreated = (DateTime)dataTable.Rows[i][7];
+                c.CostomerModified = (DateTime)dataTable.Rows[i][8];
+                c.LastPasswordReset = (DateTime)dataTable.Rows[i][9];
+                c.CustomerActivate = (bool)dataTable.Rows[i][10];
+                c.CustomerActivateGuid = dataTable.Rows[i][11].ToString();
+                c.CustomerActivateGuid = dataTable.Rows[i][11].ToString();
+                c.IsAdmin = (bool)dataTable.Rows[i][12];
+                CustomerList.Add(c);
+            }
+
+            IndexHomeView model = new IndexHomeView
+            {
+                CustomerList=CustomerList
+            };
+
+            return View(model);
         }
     }
 }

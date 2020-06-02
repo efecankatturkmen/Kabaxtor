@@ -1,0 +1,182 @@
+﻿@using Kabaxtor.ViewModels;
+@model IndexHomeView
+@{
+    ViewBag.Title = "ListOrderForAdmin";
+    Layout = "~/Views/Shared/Admin_Layout.cshtml";
+}
+<section id="content">
+
+    <div class="content-wrap">
+
+        <div class="container clearfix">
+
+            <div class="table-responsive">
+                <table id="OrderListTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                          <th>Musteri Adi</th>
+                            <th>Urun Adi</th>
+                            <th>Urun Fiyati</th>
+                            <th>Urun Sayisi</th>
+                            <th>Durum</th>
+                            <th>Toplam Fiyat</th>
+
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>Musteri Adi</th>
+                            <th>Urun Adi</th>
+                            <th>Urun Fiyati</th>
+                            <th>Urun Sayisi</th>
+                            <th>Durum</th>
+                            <th>Toplam Fiyat</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        @for (int i = 0; i < Model.dataTable.Rows.Count; i++)
+                        {
+                            int orderid = Convert.ToInt32(Model.dataTable.Rows[i][5]);
+
+                            int total = Convert.ToInt32(@Model.dataTable.Rows[i][2]) * Convert.ToInt32(@Model.dataTable.Rows[i][3]);
+                        <tr>
+                            <th>@Model.dataTable.Rows[i][0]</th>
+                            <th>@Model.dataTable.Rows[i][1]</th>
+                            <th>@Model.dataTable.Rows[i][2]</th>
+                            <th>@Model.dataTable.Rows[i][3]</th>
+                          
+                                @if (Model.dataTable.Rows[i][4].ToString() == "Ödendi")
+                                {
+                                    int id = Convert.ToInt32(Model.dataTable.Rows[i][5]);
+
+                            <th>
+                                @Model.dataTable.Rows[i][4]&nbsp;&nbsp;&nbsp;  <button href="#@orderid"class="btn btn-info" data-toggle="modal" data-target="#@orderid"><i class="fa fa-edit"></i>&nbsp;Duzenle</button>
+                                @*<a href="#@Model.dataTable.Rows[i][5]" data-lightbox="inline" class="btn btn-info" type="button"><i class="fa fa-edit"></i>&nbsp;Duzenle</a>*@
+
+
+
+                                <div class="modal fade" id="@orderid" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-body">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title" id="myModalLabel">Durum Degistir</h4>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                                </div>
+                                                @using (Html.BeginForm("ChangeStatus","Admin",new {id = orderid },FormMethod.Post))
+                                                {
+                                                    <div class="modal-body">
+
+                                                        @Html.DropDownListFor(model=>model.status.StatusID,Model.SelectList , new { @class = "select-1 form-control select2-hidden-accessible",ariahidden = "true", style = "width:100%;",  tabindex = "-1" } )
+
+                                                        @*<select class="select-1 form-control select2-hidden-accessible" style="width:100%;" tabindex="-1" aria-hidden="true">
+
+
+                                                            <option value="">Seciniz</option>
+                                                            @foreach (var s in Model.StatusList)
+                                                            {
+                                                                <option value="@s.StatusID">@s.StatusName</option>
+                                                            }
+
+
+
+
+                                                        </select>*@
+                                                        
+
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+                                                        <button type="submit" class="btn btn-success">Kaydet</button>
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                @*
+
+
+                               <div class="modal1 mfp-hide" id="@Model.dataTable.Rows[i][5]" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: block; padding-right: 17px;" aria-modal="true">
+            <div class="modal-dialog">
+                <div class="modal-body">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="myModalLabel">Modal Heading</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        </div>
+                        <div class="modal-body">
+                            <h4>Text in a modal</h4>
+                            <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula.</p>
+                            <h4>Popover in a modal</h4>
+                            <p>This <a href="#" role="button" class="btn btn-secondary" data-toggle="popover" title="" data-content="And here's some amazing content. It's very engaging. right?" data-original-title="A Title">button</a> should trigger a popover on click.</p>
+                            <h4>Tooltips in a modal</h4>
+                            <p><a href="#" data-toggle="tooltip" title="" data-original-title="Tooltip">This link</a> and <a href="#" data-toggle="tooltip" title="" data-original-title="Tooltip">that link</a> should have tooltips on hover.</p>
+                            <hr>
+                            <h4>Overflowing text to show scroll behavior</h4>
+                            <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+                            <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+                            <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+                            <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+                            <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+                            <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+                            <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+                            <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+                            <p class="nobottommargin">Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+
+
+
+
+                            </th>
+                                }
+                                else
+                                {
+                                    <th>@Model.dataTable.Rows[i][4]</th>
+                                }
+
+
+                            <th>@total</th>
+                        
+
+                        </tr>
+                        }
+
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+    </div>
+
+</section><!-- #content end -->

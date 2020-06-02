@@ -1,0 +1,56 @@
+﻿@using Kabaxtor.ViewModels;
+@model IndexHomeView
+@{
+    ViewBag.Title = "MyCustomers";
+    Layout = "~/Views/Shared/Admin_Layout.cshtml";
+}
+
+<section id="content">
+
+    <div class="content-wrap">
+
+        <div class="container clearfix">
+
+            <div class="table-responsive">
+                <table id="datatable1" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+
+                            <th>Musteri Adi</th>
+                            <th>Musteri Soyadi</th>
+                            <th>E-mail</th>
+                            <th>Telefon</th>
+                           
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>Musteri Adi</th>
+                            <th>Musteri Soyadi</th>
+                            <th>E-mail</th>
+                            <th>Telefon</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        @foreach(var c in Model.CustomerList)
+                        {
+                            <tr>
+                                <th>@c.CustomerName</th>
+                                <th>@c.CustomerSurname</th>
+                                <th>@c.CustomerEmail</th>
+                                <th>@c.CustomerPhone</th>
+                              
+
+                            </tr>
+                        }
+
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+    </div>
+
+</section><!-- #content end -->

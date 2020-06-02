@@ -366,7 +366,8 @@ var SEMICOLON = SEMICOLON || {};
 					mainClass: 'mfp-no-margins mfp-fade',
 					closeBtnInside: false,
 					fixedContentPos: true,
-					overflowY: 'scroll'
+                    overflowY: 'scroll'
+
 				});
 			}
 
@@ -2212,10 +2213,11 @@ var SEMICOLON = SEMICOLON || {};
 						useCSS: flexsUseCSS,
 						touch: flexsTouch,
 						start: function(slider){
-							SEMICOLON.widget.animations();
+                            SEMICOLON.widget.animations();
+                            
 							SEMICOLON.initialize.verticalMiddle();
 							slider.parent().removeClass('preloader2');
-							var t = setTimeout( function(){ $('.grid-container').isotope('layout'); }, 1200 );
+                            var t = setTimeout(function () { $('.grid-container').isotope('layout'); SEMICOLON.widget.toggles(); }, 0);
 							SEMICOLON.initialize.lightbox();
 							$('.flex-prev').html('<i class="icon-angle-left"></i>');
 							$('.flex-next').html('<i class="icon-angle-right"></i>');
@@ -3667,7 +3669,8 @@ var SEMICOLON = SEMICOLON || {};
 			SEMICOLON.widget.html5Video();
 			SEMICOLON.widget.masonryThumbs();
 			SEMICOLON.header.topsocial();
-			SEMICOLON.header.responsiveMenuClass();
+            SEMICOLON.header.responsiveMenuClass();
+            SEMICOLON.widget.toggles();
 			SEMICOLON.initialize.modal();
 		}
 

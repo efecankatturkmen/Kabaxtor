@@ -147,13 +147,16 @@
                                     }
                                     else
                                     {
-                                         isikli= @Model.dataTable.Rows[i][0].ToString() + ".jpg"; //1.jpg
-                                         isiksiz = @Model.dataTable.Rows[i][0].ToString() + "-1.jpg"; //1-1.jpg
+
+                                          isikli = @Model.dataTable.Rows[i][0].ToString() + ".jpg"; //1.jpg
+                                        isiksiz = @Model.dataTable.Rows[i][0].ToString() + "-1.jpg"; //1-1.jpg
                                         <div class="sale-flash">Satista!</div>
                                         <div class="product-overlay">
 
                                             <a href="@Url.Action("FastCreateOrder","Customer",new { id = id})" class="add-to-cart"><i class="icon-shopping-cart"></i><span> Sepete Ekle</span></a>
+                                            @*<a href="#@Model.dataTable.Rows[i][0]" data-lightbox="inline" class="item-quick-view"><i class="icon-line-search"></i><span>Incele</span></a>*@
                                             <a href="#@Model.dataTable.Rows[i][0]" data-lightbox="inline" class="item-quick-view"><i class="icon-line-search"></i><span>Incele</span></a>
+                                            @*<a href="~/Content/demos/shop/ajax/shop-item.html" data-lightbox="ajax" class="item-quick-view"><i class="icon-line-search"></i><span>Incele</span></a>*@
 
                                         </div>
                                         <div class="modal1 mfp-hide" id="@Model.dataTable.Rows[i][0]">
@@ -168,10 +171,10 @@
                                                     <div class="col_half nobottommargin">
                                                         <div class="product-image">
                                                             <div class="fslider" data-pagi="false">
-                                                                <div class="flexslider">
+                                                                <div class="flexslider"data-pagi="true"flexsThumbs = "true">
                                                                     <div class="slider-wrap">
-                                                                        <div class="slide" ><a title="@Model.dataTable.Rows[i][1] - Front View"><img src="~/Content/demos/shop/images/items/featured/@isikli" alt="@Model.dataTable.Rows[i][1]"></a></div>
-                                                                        @*<div ><a title="@Model.dataTable.Rows[i][1] - Side View"><img src="~/Content/demos/shop/images/items/featured/@isiksiz" alt="@Model.dataTable.Rows[i][1]"></a></div>*@
+                                                                        <div class="slide" > <a title="@Model.dataTable.Rows[i][1] - Front View"><img src="~/Content/demos/shop/images/items/featured/@isikli" alt="@Model.dataTable.Rows[i][1]"></a></div>
+                                                                        <div class="slide"  ><a title="@Model.dataTable.Rows[i][1] - Side View"><img src="~/Content/demos/shop/images/items/featured/@isiksiz" alt="@Model.dataTable.Rows[i][1]"></a></div>
                                                                     </div>
                                                                 </div>
                                                             </div>
